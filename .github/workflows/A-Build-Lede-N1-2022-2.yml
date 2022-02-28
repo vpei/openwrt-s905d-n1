@@ -255,14 +255,12 @@ jobs:
       run: |
         echo "::set-output name=release_tag::N2_lede_s905d_${{ env.FILE_DATE }}"
         touch release.txt
-        [ ${{ env.UPLOAD_COWTRANSFER }} == 'true' ] && echo "🔗 [Cowtransfer-File](${{ steps.cowtransfer.outputs.url }})" >> release.txt
-        [ ${{ env.UPLOAD_WETRANSFER }} = true ] && echo "🔗 [WeTransfer-File](${{ steps.wetransfer.outputs.url }})" >> release.txt
         echo "* 有什么问题，可以加Telegram群组讨论1：[https://t.me/tt2048](https://t.me/tt2048) (安装Telegram后打开网址或者搜索tt2048)" >> release.txt
         echo "本固件网线接外网，自动拨号，提供猕猴桃挖矿流量分享，再提供Wifi局域网。" >> release.txt
         echo "当前使用版本:编译前的最后一次➦[主源码](https://github.com/coolsnowwolf/lede)更新记录，此为**自用精简包**。" >> release.txt
         echo "本版本建议**全新刷入**或者**不保留配置**进行升级。" >> release.txt
-        [ ${{ env.UPLOAD_COWTRANSFER }} = true ] && echo "🔗 [Cowtransfer-2](${{ steps.cowtransfer.outputs.url }})" >> release.txt
-        [ ${{ env.UPLOAD_WETRANSFER }} = true ] && echo "🔗 [WeTransfer-2](${{ steps.wetransfer.outputs.url }})" >> release.txt
+        [ ${{ env.UPLOAD_COWTRANSFER }} = true ] && echo "🔗 [Cowtransfer-File](${{ steps.cowtransfer.outputs.url }})" >> release.txt
+        [ ${{ env.UPLOAD_WETRANSFER }} = true ] && echo "🔗 [WeTransfer-File](${{ steps.wetransfer.outputs.url }})" >> release.txt
         echo "This is OpenWrt firmware for Amlogic S9xxx STB" >> release.txt
         echo "* Firmware information" >> release.txt
         echo "Default IP: 192.168.3.254" >> release.txt
@@ -280,40 +278,40 @@ jobs:
       env:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       with:
-        #tag_name: openwrt_s905d_n2_${{ env.PACKAGED_OUTPUTDATE }}
-        tag_name: N2_${{ steps.tag.outputs.release_tag }}
+        #tag_name: openwrt_s905d_${{ env.PACKAGED_OUTPUTDATE }}
+        tag_name: ${{ steps.tag.outputs.release_tag }}
         body_path: release.txt
         files: ${{ env.PACKAGED_OUTPUTPATH }}/*
 
-    - name: Upload OpenWrt Firmware to Release
-      id: release
-      uses: ncipollo/release-action@v1
-      if: steps.build.outputs.status == 'success' && env.UPLOAD_RELEASE == 'true' && !cancelled()
-      with:
-        #tag: N2_lede_s905d_${{ env.FILE_DATE }}
-        tag: ${{ steps.tag.outputs.release_tag }}
-        artifacts: ${{ env.PACKAGED_OUTPUTPATH }}/*
-        #name: R${{ env.DATE }} for ${{ env.FILE_NAME }}
-        allowUpdates: true
-        commit: main
-        #token: ${{ secrets.RELEASES_TOKEN }}
-        token: ${{ secrets.GITHUB_TOKEN }}
-        body: |
-          * 有什么问题，可以加Telegram群组讨论2：[https://t.me/tt2048](https://t.me/tt2048) (安装Telegram后打开网址或者搜索tt2048)
-          本固件网线接外网，自动拨号，提供猕猴桃挖矿流量分享，再提供Wifi局域网。
-          当前使用版本:编译前的最后一次➦[主源码](https://github.com/coolsnowwolf/lede)更新记录，此为**自用精简包**。
-          本版本建议**全新刷入**或者**不保留配置**进行升级。
-          🔗 [Cowtransfer-2](${{ steps.cowtransfer.outputs.url }})
-          🔗 [WeTransfer-2](${{ steps.wetransfer.outputs.url }})
-          This is OpenWrt firmware for Amlogic S9xxx STB
-          * Firmware information
-          Default IP: 192.168.3.254
-          Default username: root
-          Default password: password
-          Default WIFI name: OpenWrt
-          Default WIFI password: none
-          Install to EMMC: Login to OpenWrt → System → Amlogic Service → Install OpenWrt
-          ${{ env.useVersionInfo }}
+    #- name: Upload OpenWrt Firmware to Release
+    #  id: release
+    #  uses: ncipollo/release-action@v1
+    #  if: steps.build.outputs.status == 'success' && env.UPLOAD_RELEASE == 'true' && !cancelled()
+    #  with:
+    #    #tag: N2_lede_s905d_${{ env.FILE_DATE }}
+    #    tag: ${{ steps.tag.outputs.release_tag }}
+    #    artifacts: ${{ env.PACKAGED_OUTPUTPATH }}/*
+    #    #name: R${{ env.DATE }} for ${{ env.FILE_NAME }}
+    #    allowUpdates: true
+    #    commit: main
+    #    #token: ${{ secrets.RELEASES_TOKEN }}
+    #    token: ${{ secrets.GITHUB_TOKEN }}
+    #    body: |
+    #      * 有什么问题，可以加Telegram群组讨论2：[https://t.me/tt2048](https://t.me/tt2048) (安装Telegram后打开网址或者搜索tt2048)
+    #      本固件网线接外网，自动拨号，提供猕猴桃挖矿流量分享，再提供Wifi局域网。
+    #      当前使用版本:编译前的最后一次➦[主源码](https://github.com/coolsnowwolf/lede)更新记录，此为**自用精简包**。
+    #      本版本建议**全新刷入**或者**不保留配置**进行升级。
+    #      🔗 [Cowtransfer-2](${{ steps.cowtransfer.outputs.url }})
+    #      🔗 [WeTransfer-2](${{ steps.wetransfer.outputs.url }})
+    #      This is OpenWrt firmware for Amlogic S9xxx STB
+    #      * Firmware information
+    #      Default IP: 192.168.3.254
+    #      Default username: root
+    #      Default password: password
+    #      Default WIFI name: OpenWrt
+    #      Default WIFI password: none
+    #      Install to EMMC: Login to OpenWrt → System → Amlogic Service → Install OpenWrt
+    #      ${{ env.useVersionInfo }}
 
     - name: Send telegram message on push
       uses: appleboy/telegram-action@master
