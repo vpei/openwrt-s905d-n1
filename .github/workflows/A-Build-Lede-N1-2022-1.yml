@@ -16,11 +16,11 @@ on:
 env:
   REPO_URL: https://github.com/coolsnowwolf/lede
   REPO_BRANCH: master
-  ROOT_DIR: router-config/lede-n1
-  FEEDS_CONF: router-config/lede-n1/feeds.conf.default
-  CONFIG_FILE: router-config/lede-n1/.config
-  DIY_P1_SH: router-config/lede-n1/diy-part1.sh
-  DIY_P2_SH: router-config/lede-n1/diy-part2.sh
+  ROOT_DIR: router-config/lede-n3
+  FEEDS_CONF: router-config/lede-n3/feeds.conf.default
+  CONFIG_FILE: router-config/lede-n3/.config
+  DIY_P1_SH: router-config/lede-n3/diy-part1.sh
+  DIY_P2_SH: router-config/lede-n3/diy-part2.sh
   UPLOAD_BIN_DIR: true
   UPLOAD_ARMVIRT: true
   UPLOAD_FIRMWARE: true
