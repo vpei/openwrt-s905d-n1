@@ -181,7 +181,7 @@ download_depends() {
     if [[ ${script_repo} == http* && $(echo ${script_repo} | grep "tree/main") != "" ]]; then
         script_repo="${script_repo//tree\/main/trunk}"
     fi
-    svn export ${script_repo} ${configfiles_path}/files/usr/sbin --force
+    # svn export ${script_repo} ${configfiles_path}/files/usr/sbin --force
 
     sync
 }

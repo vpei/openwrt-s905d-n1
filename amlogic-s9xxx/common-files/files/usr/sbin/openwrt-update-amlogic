@@ -413,7 +413,7 @@ done
 
 echo "Create folder ... "
 btrfs subvolume create etc
-mkdir -p .snapshots .reserved bin boot dev lib opt mnt overlay proc rom root run sbin sys tmp usr www
+mkdir -p .snapshots .reserved bin boot dev lib opt mnt overlay proc rom root run sbin sys tmp usr www kuaicdn
 ln -sf lib/ lib64
 ln -sf tmp/ var
 sync
