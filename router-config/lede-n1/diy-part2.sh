@@ -37,6 +37,7 @@ svn co https://github.com/ophub/luci-app-amlogic/trunk/luci-app-amlogic package/
 
 # Add zerotier luci-app-zerotier
 svn co https://github.com/harryzwh/luci-app-zerotier/trunk/ package/vpei/luci-app-zerotier
+sed -i 's#../../luci.mk#$(TOPDIR)/feeds/luci/luci.mk#' package/vpei/luci-app-zerotier/Makefile
 
 # Add shadowsocks and shadowsocksR
 # svn co https://github.com/openwrt/packages/trunk/net/shadowsocks-libev package/vpei/shadowsocks-libev
