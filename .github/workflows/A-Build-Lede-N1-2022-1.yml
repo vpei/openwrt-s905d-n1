@@ -218,7 +218,7 @@ jobs:
       run: |
         [ -d openwrt-armvirt ] || mkdir -p openwrt-armvirt
         cp -f openwrt/bin/targets/*/*/*.tar.gz openwrt-armvirt/ && sync
-        sudo chmod +x make
+        sudo chmod +x make2
         #sudo ./make -d -b s905x3_s905x2_s905x_s905w_s905d_s922x_s912 -k 5.10.70_5.4.181
         sudo ./make2 -d -b n1 -k 5.4.181
         [ -d ipk ] || mkdir -p ipk
