@@ -1,0 +1,230 @@
+
+config smartdns
+	option seconddns_no_dualstack_selection '0'
+	option seconddns_no_speed_check '0'
+	option prefetch_domain '1'
+	option seconddns_no_rule_addr '0'
+	option seconddns_no_rule_nameserver '0'
+	option seconddns_no_rule_soa '0'
+	option seconddns_no_rule_ipset '0'
+	option coredump '0'
+	option seconddns_no_cache '0'
+	option seconddns_port '6553'
+	option tcp_server '1'
+	option server_name 'smartdns'
+	option rr_ttl '600'
+	option rr_ttl_max '900'
+	option rr_ttl_min '300'
+	option force_aaaa_soa '0'
+	option cache_size '0'
+	option dualstack_ip_selection '1'
+	option ipv6_server '1'
+	option serve_expired '1'
+	option enabled '1'
+	option seconddns_tcp_server '0'
+	option redirect 'dnsmasq-upstream'
+	option port '6053'
+	list old_redirect 'dnsmasq-upstream'
+	list old_port '6053'
+	list old_enabled '1'
+
+config server
+	option type 'udp'
+	option name '2400:3200::1'
+	option blacklist_ip '0'
+	option ip '2400:3200::1'
+	option enabled '0'
+	option port '53'
+
+config server
+	option type 'udp'
+	option name '2400:3200:baba::1'
+	option blacklist_ip '0'
+	option ip '2400:3200:baba::1'
+	option enabled '0'
+	option port '53'
+
+config server
+	option type 'udp'
+	option blacklist_ip '0'
+	option ip '2001:4860:4860::8888'
+	option name 'GG - 2001:4860:4860::8888'
+	option port '53'
+	option enabled '1'
+
+config server
+	option port '53'
+	option name 'CF - 2606:4700:4700::1111'
+	option blacklist_ip '0'
+	option type 'udp'
+	option ip '2606:4700:4700::1111'
+	option enabled '1'
+
+config server
+	option port '53'
+	option name 'IBM - 2620:fe::fe'
+	option blacklist_ip '0'
+	option type 'udp'
+	option ip '2620:fe::fe'
+	option enabled '1'
+
+config server
+	option port '53'
+	option name 'OP - 2620:0:ccc::2'
+	option blacklist_ip '0'
+	option type 'udp'
+	option ip '2620:0:ccc::2'
+	option enabled '1'
+
+config server
+	option port '53'
+	option name 'TW - 2001:b000:168::1'
+	option blacklist_ip '0'
+	option type 'udp'
+	option ip '2001:b000:168::1'
+	option enabled '1'
+
+config server
+	option port '53'
+	option blacklist_ip '0'
+	option type 'udp'
+	option name 'OneDNS - 117.50.10.10'
+	option ip '117.50.10.10'
+	option enabled '1'
+
+config server
+	option type 'udp'
+	option blacklist_ip '0'
+	option ip '114.114.114.114'
+	option port '53'
+	option name 'NJ - 114.114.114.114'
+	option enabled '0'
+
+config server
+	option type 'udp'
+	option blacklist_ip '0'
+	option port '53'
+	option enabled '0'
+	option name 'AL - 223.5.5.5'
+	option ip '223.5.5.5'
+
+config server
+	option port '53'
+	option blacklist_ip '0'
+	option type 'udp'
+	option ip '119.29.29.29'
+	option name 'TX - 119.29.29.29'
+	option enabled '0'
+
+config server
+	option port '53'
+	option blacklist_ip '0'
+	option type 'udp'
+	option ip '180.76.76.76'
+	option enabled '0'
+	option name 'BD - 180.76.76.76'
+
+config server
+	option port '53'
+	option blacklist_ip '0'
+	option type 'udp'
+	option enabled '0'
+	option name 'AH - 202.102.213.68'
+	option ip '202.102.213.68'
+
+config server
+	option enabled '1'
+	option port '53'
+	option blacklist_ip '0'
+	option type 'udp'
+	option ip '8.8.8.8'
+	option name 'GG - 8.8.8.8'
+
+config server
+	option port '53'
+	option blacklist_ip '0'
+	option type 'udp'
+	option ip '80.80.80.80'
+	option name 'TK - 80.80.80.80'
+	option enabled '1'
+
+config server
+	option enabled '1'
+	option port '53'
+	option blacklist_ip '0'
+	option type 'udp'
+	option ip '208.67.222.222'
+	option name 'OP - 208.67.222.222'
+
+config server
+	option enabled '1'
+	option port '53'
+	option blacklist_ip '0'
+	option type 'udp'
+	option ip '1.1.1.1'
+	option name 'CF - 1.1.1.1'
+
+config server
+	option enabled '1'
+	option port '53'
+	option blacklist_ip '0'
+	option type 'udp'
+	option ip '1.1.1.2'
+	option name 'CF - 1.1.1.2'
+
+config server
+	option enabled '1'
+	option port '53'
+	option blacklist_ip '0'
+	option type 'udp'
+	option ip '9.9.9.9'
+	option name 'IBM - 9.9.9.9'
+
+config server
+	option port '53'
+	option blacklist_ip '0'
+	option type 'udp'
+	option ip '203.80.96.10'
+	option name 'HK - 203.80.96.10'
+	option enabled '0'
+
+config server
+	option port '53'
+	option blacklist_ip '0'
+	option type 'udp'
+	option ip '202.45.84.58'
+	option name 'HK - 202.45.84.58'
+	option enabled '0'
+
+config server
+	option port '53'
+	option name 'TW - 168.95.1.1'
+	option blacklist_ip '0'
+	option type 'udp'
+	option ip '168.95.1.1'
+	option enabled '0'
+
+config server
+	option enabled '1'
+	option port '53'
+	option name 'TW - 101.101.101.101'
+	option blacklist_ip '0'
+	option type 'udp'
+	option ip '101.101.101.101'
+
+config server
+	option enabled '1'
+	option port '53'
+	option name 'ELS - 77.88.8.8'
+	option blacklist_ip '0'
+	option type 'udp'
+	option ip '77.88.8.8'
+
+config server
+	option enabled '1'
+	option port '53'
+	option name 'DM - 91.239.100.100'
+	option blacklist_ip '0'
+	option type 'udp'
+	option ip '91.239.100.100'
+

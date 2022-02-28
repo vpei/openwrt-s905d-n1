@@ -1,0 +1,6 @@
+*     *       *       *       *   echo `date` > /kuaicdn/app/ipes/var/log/ipes/cron.log && sh /kuaicdn/app/ipes/bin/check start >> /kuaicdn/app/ipes/var/log/ipes/cron.log  2>&1
+0 4 * * * /etc/coremark.sh
+1 1 * * * sh /usr/share/jd-dailybonus/newapp.sh -w
+1 23 * * * sh /usr/share/jd-dailybonus/newapp.sh -u
+0 8 * * 1 /usr/share/openclash/openclash_ipdb.sh
+0 11 * * 1 /usr/share/openclash/openclash_chnroute.sh

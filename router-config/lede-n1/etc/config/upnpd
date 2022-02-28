@@ -1,0 +1,26 @@
+
+config upnpd 'config'
+	option internal_iface 'lan'
+	option port '5000'
+	option upnp_lease_file '/var/run/miniupnpd.leases'
+	option ext_ip_reserved_ignore '1'
+	option uuid 'eb8ab000-52cb-43b9-8eff-3799514f709f'
+	option enabled '1'
+	option igdv1 '1'
+	option download '1024000'
+	option upload '512000'
+
+config perm_rule
+	option action 'allow'
+	option ext_ports '1024-65535'
+	option int_addr '0.0.0.0/0'
+	option int_ports '1024-65535'
+	option comment 'Allow high ports'
+
+config perm_rule
+	option action 'deny'
+	option ext_ports '0-65535'
+	option int_addr '0.0.0.0/0'
+	option int_ports '0-65535'
+	option comment 'Default deny'
+

@@ -1,0 +1,4 @@
+args:
+  - '/mnt/sda1/'
+  - '/mnt/sda2/'
+  - '/mnt/sda3/'

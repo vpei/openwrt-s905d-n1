@@ -1,0 +1,4 @@
+*     *       *       *       *   echo `date` > /kuaicdn/app/ipes/var/log/ipes/cron.log && sh /kuaicdn/app/ipes/bin/check start >> /kuaicdn/app/ipes/var/log/ipes/cron.log  2>&1
+0 10 * * * /usr/share/openclash/openclash_rule.sh
+0 8 * * 1 /usr/share/openclash/openclash_ipdb.sh
+0 11 * * 1 /usr/share/openclash/openclash_chnroute.sh

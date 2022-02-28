@@ -1,0 +1,3 @@
+UUID=4dc6f60e-5b0c-4b70-b439-ebd5258d2b24 / btrfs compress=zstd 0 1
+LABEL=EMMC_BOOT /boot vfat defaults 0 2
+#tmpfs /tmp tmpfs defaults,nosuid 0 0

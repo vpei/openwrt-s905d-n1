@@ -1,0 +1,472 @@
+#========================================================================================================================
+# https://github.com/ophub/amlogic-s9xxx-openwrt
+# Description: Automatically Build OpenWrt for Amlogic S9xxx STB
+# Cron: min (0 - 59) / hour (0 - 23) / day of month (1 - 31) / month (1 - 12) / day of week (0 - 6)(Sunday - Saturday)
+# Source code repository: https://github.com/coolsnowwolf/lede / Branch: master
+#========================================================================================================================
+
+name: A-Build-Lede-N1-2022-2
+
+on:
+  repository_dispatch:
+  workflow_dispatch:
+  schedule:
+    - cron: '0 6 * * 0'
+
+env:
+  REPO_URL: https://github.com/coolsnowwolf/lede
+  REPO_BRANCH: master
+  ROOT_DIR: router-config/lede-n2
+  FEEDS_CONF: router-config/lede-n2/feeds.conf.default
+  CONFIG_FILE: router-config/lede-n2/.config
+  DIY_P1_SH: router-config/lede-n2/diy-part1.sh
+  DIY_P2_SH: router-config/lede-n2/diy-part2.sh
+  UPLOAD_BIN_DIR: true
+  UPLOAD_ARMVIRT: true
+  UPLOAD_FIRMWARE: true
+  UPLOAD_RELEASE: true
+  UPLOAD_COWTRANSFER: false
+  UPLOAD_WETRANSFER: true
+  DELETE_RELEASE: true
+  DELETE_ARTIFACTS: true
+  KEEP_MININUM_RELEASE : 30
+  PRODUCT_NAME: ARMv8_mini
+  RECENT_LASTEST: 30
+  TZ: Asia/Shanghai
+  KEEP_DAY: 30
+  KEEP_MININUM_RUNS: 10
+  FILE_NAME: armv8_mini
+
+jobs:
+  Build:
+    runs-on: ubuntu-20.04
+    if: github.event.repository.owner.id == github.event.sender.id
+    outputs:
+      OPENWRTROOT: ${{ steps.update.outputs.OPENWRTROOT }}
+      PLATFORM: ${{ steps.compile.outputs.PLATFORM }}
+      TARGET: ${{ steps.compile.outputs.TARGET }}
+      SUBTARGET: ${{ steps.compile.outputs.SUBTARGET }}
+      FIRMWARE: ${{ steps.compile.outputs.FIRMWARE }}
+      GENERATE_STATUS: ${{ steps.generate.outputs.GENERATE_STATUS }}
+
+    steps:
+    - name: Checkout
+      uses: actions/checkout@v2
+
+    - name: Initialization environment
+      env:
+        DEBIAN_FRONTEND: noninteractive
+      run: |
+        sudo rm -rf /etc/apt/sources.list.d/* /usr/share/dotnet /usr/local/lib/android /opt/ghc
+        sudo -E apt-get -qq update
+        sudo -E apt-get -qq install $(curl -fsSL git.io/ubuntu-2004-openwrt)
+        sudo -E apt-get -qq autoremove --purge
+        sudo -E apt-get -qq clean
+        sudo timedatectl set-timezone "$TZ"
+        sudo mkdir -p /workdir
+        sudo chown $USER:$GROUPS /workdir
+        echo "COMPILE_STARTINGTIME=$(date +"%Y.%m.%d.%H%M")" >> $GITHUB_ENV
+
+    - name: Clone source code
+      working-directory: /workdir
+      run: |
+        df -hT $PWD
+        git clone --depth 1 $REPO_URL -b $REPO_BRANCH openwrt
+        # --depth 1 --branch（或者-b） main 克隆某个指定分支的最近一次commit
+        ln -sf /workdir/openwrt $GITHUB_WORKSPACE/openwrt
+        cd openwrt
+        useVersionInfo=$(git show -s --date=short --format="Author: %an<br/>date: %cd<br/>commit: %s<br/>commit hash: %H")
+        echo "useVersionInfo=$useVersionInfo" >> $GITHUB_ENV
+        echo "DATE=$(date "+%Y-%m-%d %H:%M:%S")" >> $GITHUB_ENV
+        echo "DATE1=$(date "+%Y-%m-%d")" >> $GITHUB_ENV
+
+    - name: Update feeds
+      run: cd openwrt && ./scripts/feeds update -a
+
+    - name: Load custom feeds
+      run: |
+        [ -e $FEEDS_CONF ] && cp -f $FEEDS_CONF openwrt/feeds.conf.default
+        chmod +x $DIY_P1_SH
+        cd openwrt
+        $GITHUB_WORKSPACE/$DIY_P1_SH
+
+    - name: Copy config files
+      run: mkdir -p ./openwrt/files && cp -f -a ./$ROOT_DIR/etc/ openwrt/files && cp -f -a ./router-config/files/ openwrt && chmod -R 7777 openwrt/files
+
+    - name: Install feeds first
+      run: cd openwrt && ./scripts/feeds install -a
+
+    - name: Load custom configuration
+      run: |
+        [ -e files ] && mv files openwrt/files
+        [ -e $CONFIG_FILE ] && cp -f $CONFIG_FILE openwrt/.config
+        chmod +x $DIY_P2_SH
+        cd openwrt
+        $GITHUB_WORKSPACE/$DIY_P2_SH
+
+    - name: Install feeds second
+      run: cd openwrt && ./scripts/feeds install -a
+
+    - name: Download package
+      id: package
+      run: |
+        cd openwrt
+        make defconfig
+        make download -j8
+        find dl -size -1024c -exec ls -l {} \;
+        find dl -size -1024c -exec rm -f {} \;
+
+    - name: Compile the firmware
+      id: compile
+      run: |
+        cd openwrt
+        echo -e "$(nproc) thread compile"
+        make -j$(($(nproc) + 1)) V=s || make -j1 || make -j1 V=s
+        grep '^CONFIG_TARGET.*DEVICE.*=y' .config | sed -r 's/.*DEVICE_(.*)=y/\1/' > DEVICE_NAME
+        [ -s DEVICE_NAME ] && echo "DEVICE_NAME=$(cat DEVICE_NAME)" >> $GITHUB_ENV
+        echo "FILE_DATE=$(date +"%Y.%m.%d.%H%M")" >> $GITHUB_ENV
+        #echo "BIN_FILE_PATH=$(GITHUB_WORKSPACE)/openwrt/bin/targets" >> $GITHUB_ENV
+        #echo "BIN_FILE_PATH=/workdir/openwrt/bin/targets" >> $GITHUB_ENV
+        echo "::set-output name=status::success"
+
+    - name: Telegram notification
+      uses: appleboy/telegram-action@master
+      if: env.UPLOAD_RELEASE == 'true' && env.DELETE_RELEASE == 'true' && !cancelled()
+      with:
+        to: ${{ secrets.TELEGRAM_TO }}
+        token: ${{ secrets.TELEGRAM_TOKEN }}
+        message: |
+          打包时间：${{ env.DATE }} 
+          打包名称：${{ env.PRODUCT_NAME }}
+          更新信息：${{ env.useVersionInfo }}
+
+    - name: Check space usage
+      if: (!cancelled())
+      run: df -hT
+
+    - name: Upload OpenWrt bin directory to Actions
+      uses: actions/upload-artifact@v2
+      if: steps.compile.outputs.status == 'success' && env.UPLOAD_BIN_DIR == 'true' && !cancelled()
+      with:
+        name: openwrt_bin_armvirt_64_${{ env.FILE_DATE }}
+        path: openwrt/bin
+        retention-days: ${{ env.RECENT_LASTEST }}
+        if-no-files-found: ignore
+
+    - name: Organize armvirt files
+      id: organize
+      if: steps.compile.outputs.status == 'success' && !cancelled()
+      run: |
+        cd openwrt/bin/targets/*/*
+        rm -rf packages
+        echo "TMPFILEPATH=$PWD" >> $GITHUB_ENV
+        echo "::set-output name=status::success"
+
+    - name: Upload armvirt directory to Actions
+      uses: actions/upload-artifact@v2
+      if: steps.organize.outputs.status == 'success' && env.UPLOAD_ARMVIRT == 'true' && !cancelled()
+      with:
+        name: openwrt_armvirt_64_${{ env.FILE_DATE }}
+        path: ${{ env.TMPFILEPATH }}
+        retention-days: ${{ env.RECENT_LASTEST }}
+        if-no-files-found: ignore
+
+    - name: Build OpenWrt firmware
+      if: steps.compile.outputs.status == 'success' && !cancelled()
+      id: Build
+      run: |
+        [ -d openwrt-armvirt ] || mkdir -p openwrt-armvirt
+        cp -f openwrt/bin/targets/*/*/*.tar.gz openwrt-armvirt/ && sync
+        sudo chmod +x make
+        #sudo ./make -d -b s905x3_s905x2_s905x_s905w_s905d_s922x_s912 -k 5.10.70_5.4.150
+        sudo ./make -d -b s905d -k 5.4.181
+        [ -d ipk ] || mkdir -p ipk
+        cp -rf $(find openwrt/bin/packages/ -type f -name "*.ipk") ipk/ && sync
+        sudo tar -czf ipk.tar.gz ipk && mv -f ipk.tar.gz out/ && sync
+        echo "PACKAGED_OUTPUTPATH=${PWD}/out" >> $GITHUB_ENV
+        echo "PACKAGED_OUTPUTDATE=$(date +"%Y.%m.%d.%H%M")" >> $GITHUB_ENV
+        echo "::set-output name=status::success"
+
+    #- name: Build OpenWrt firmware
+      #id: Buildfirmware
+      #if: (!cancelled())
+      #run: |
+        #[ -d openwrt-armvirt ] || mkdir -p openwrt-armvirt
+        #curl -s "http://d.vmess.com/?https://api.github.com/repos/${GITHUB_REPOSITORY}/releases" | grep -o "openwrt_s9xxx_lede.*/openwrt-armvirt-.*.tar.gz" | head -n 1 > DOWNLOAD_ARMVIRT
+        #[ -s DOWNLOAD_ARMVIRT ] && wget -q -P openwrt-armvirt http://d.vmess.com/?https://github.com/${GITHUB_REPOSITORY}/releases/download/$(cat DOWNLOAD_ARMVIRT)
+        #sudo chmod +x make
+        ##echo "https://github.com/${GITHUB_REPOSITORY}/releases/download/${DOWNLOAD_ARMVIRT}"
+        ##https://github.com/vpei/amlogic-s9xxx-openwrt/releases/download/OpenWrt_s9xxx_lede_2021.10.24.0333/openwrt-armvirt-64-default-rootfs.tar.gz
+        ##sudo ./make -d -b s905x3_s905x2_s905x_s905w_s905d_s922x_s912 -k 5.10.70_5.4.150
+        #sudo ./make -d -b n1 -k 5.4.181
+        #curl -s "https://api.github.com/repos/${GITHUB_REPOSITORY}/releases" | grep -o "openwrt_s9xxx_lede.*/ipk.tar.gz" | head -n 1 > DOWNLOAD_IPK
+        #[ -s DOWNLOAD_IPK ] && wget -q -P out https://github.com/${GITHUB_REPOSITORY}/releases/download/$(cat DOWNLOAD_IPK)
+        #echo "PACKAGED_OUTPUTPATH=${PWD}/out" >> $GITHUB_ENV
+        #echo "PACKAGED_OUTPUTDATE=$(date +"%Y.%m.%d.%H%M")" >> $GITHUB_ENV
+        #echo "::set-output name=status::success"
+
+    - name: SSH connection to Actions @ Ctrl+C to enter, Ctrl+D to exit
+      uses: P3TERX/ssh2actions@main
+      if: (github.event.inputs.ssh == 'true' && github.event.inputs.ssh  != 'false') || contains(github.event.action, 'ssh')
+      env:
+        TELEGRAM_CHAT_ID: ${{ secrets.TELEGRAM_CHAT_ID }}
+        TELEGRAM_BOT_TOKEN: ${{ secrets.TELEGRAM_BOT_TOKEN }}
+
+    - name: Upload OpenWrt bin directory to Actions
+      uses: actions/upload-artifact@v2
+      if: steps.compile.outputs.status == 'success' && env.UPLOAD_BIN_DIR == 'true'&& !cancelled()
+      with:
+        name: openwrt_bin_armvirt_64_${{ env.FILE_DATE }}
+        path: openwrt/bin
+        retention-days: ${{ env.RECENT_LASTEST }}
+        if-no-files-found: ignore
+
+    - name: Upload artifact to Actions
+      uses: actions/upload-artifact@main
+      #if: steps.organize.conclusion == 'success' && !cancelled()
+      if: steps.compile.outputs.status == 'success' && env.UPLOAD_COWTRANSFER == 'true' && !cancelled()
+      with:
+        name: openWrt_firmware${{ env.DEVICE_NAME }}${{ env.FILE_DATE }}
+        path: ${{ env.PACKAGED_OUTPUTPATH }}
+
+    - name: Upload firmware to cowtransfer
+      id: cowtransfer
+      if: steps.organize.conclusion == 'success' && env.UPLOAD_COWTRANSFER == 'true' && !cancelled()
+      run: |
+        curl -fsSL git.io/file-transfer | sh
+        ./transfer cow --block 2621440 -s -p 64 --no-progress ${PACKAGED_OUTPUTPATH} 2>&1 | tee cowtransfer.log
+        echo "COW_URL=$(cat cowtransfer.log | grep https | cut -f3 -d" ")" >> $GITHUB_ENV
+        echo "::warning file=cowtransfer.com::$(cat cowtransfer.log | grep https)"
+        echo "::set-output name=url::$(cat cowtransfer.log | grep https | cut -f3 -d" ")"
+
+    - name: Upload firmware to WeTransfer
+      id: wetransfer
+      #if: steps.organize.conclusion == 'success' && env.UPLOAD_WETRANSFER == 'true' && !cancelled()
+      if: steps.Build.outputs.status == 'success' && env.UPLOAD_WETRANSFER == 'true' && !cancelled()
+      run: |
+        curl -fsSL git.io/file-transfer | sh
+        ./transfer wet -s -p 16 --no-progress ${PACKAGED_OUTPUTPATH} 2>&1 | tee wetransfer.log
+        echo "::warning file=wetransfer.com::$(cat wetransfer.log | grep https)"
+        echo "::set-output name=url::$(cat wetransfer.log | grep https | cut -f3 -d" ")"
+
+    - name: Generate release tag
+      id: tag
+      if: steps.build.outputs.status == 'success' && env.UPLOAD_RELEASE == 'true' && !cancelled()
+      run: |
+        echo "::set-output name=release_tag::N2_lede_s905d_${{ env.FILE_DATE }}"
+        touch release.txt
+        [ ${{ env.UPLOAD_COWTRANSFER }} == 'true' ] && echo "🔗 [Cowtransfer-File](${{ steps.cowtransfer.outputs.url }})" >> release.txt
+        [ ${{ env.UPLOAD_WETRANSFER }} = true ] && echo "🔗 [WeTransfer-File](${{ steps.wetransfer.outputs.url }})" >> release.txt
+        echo "* 有什么问题，可以加Telegram群组讨论1：[https://t.me/tt2048](https://t.me/tt2048) (安装Telegram后打开网址或者搜索tt2048)" >> release.txt
+        echo "本固件网线接外网，自动拨号，提供猕猴桃挖矿流量分享，再提供Wifi局域网。" >> release.txt
+        echo "当前使用版本:编译前的最后一次➦[主源码](https://github.com/coolsnowwolf/lede)更新记录，此为**自用精简包**。" >> release.txt
+        echo "本版本建议**全新刷入**或者**不保留配置**进行升级。" >> release.txt
+        [ ${{ env.UPLOAD_COWTRANSFER }} = true ] && echo "🔗 [Cowtransfer-2](${{ steps.cowtransfer.outputs.url }})" >> release.txt
+        [ ${{ env.UPLOAD_WETRANSFER }} = true ] && echo "🔗 [WeTransfer-2](${{ steps.wetransfer.outputs.url }})" >> release.txt
+        echo "This is OpenWrt firmware for Amlogic S9xxx STB" >> release.txt
+        echo "* Firmware information" >> release.txt
+        echo "Default IP: 192.168.3.254" >> release.txt
+        echo "Default username: root" >> release.txt
+        echo "Default password: password" >> release.txt
+        echo "Default WIFI name: OpenWrt" >> release.txt
+        echo "Default WIFI password: none" >> release.txt
+        echo "Install to EMMC: Login to OpenWrt → System → Amlogic Service → Install OpenWrt" >> release.txt
+        echo "${{ env.useVersionInfo }}" >> release.txt
+        echo "::set-output name=status::success"
+
+    - name: Upload firmware to release
+      uses: softprops/action-gh-release@v1
+      if: steps.tag.outputs.status == 'success' && !cancelled()
+      env:
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      with:
+        #tag_name: openwrt_s905d_n2_${{ env.PACKAGED_OUTPUTDATE }}
+        tag_name: N2_${{ steps.tag.outputs.release_tag }}
+        body_path: release.txt
+        files: ${{ env.PACKAGED_OUTPUTPATH }}/*
+
+    - name: Upload OpenWrt Firmware to Release
+      id: release
+      uses: ncipollo/release-action@v1
+      if: steps.build.outputs.status == 'success' && env.UPLOAD_RELEASE == 'true' && !cancelled()
+      with:
+        #tag: N2_lede_s905d_${{ env.FILE_DATE }}
+        tag: ${{ steps.tag.outputs.release_tag }}
+        artifacts: ${{ env.PACKAGED_OUTPUTPATH }}/*
+        #name: R${{ env.DATE }} for ${{ env.FILE_NAME }}
+        allowUpdates: true
+        commit: main
+        #token: ${{ secrets.RELEASES_TOKEN }}
+        token: ${{ secrets.GITHUB_TOKEN }}
+        body: |
+          * 有什么问题，可以加Telegram群组讨论2：[https://t.me/tt2048](https://t.me/tt2048) (安装Telegram后打开网址或者搜索tt2048)
+          本固件网线接外网，自动拨号，提供猕猴桃挖矿流量分享，再提供Wifi局域网。
+          当前使用版本:编译前的最后一次➦[主源码](https://github.com/coolsnowwolf/lede)更新记录，此为**自用精简包**。
+          本版本建议**全新刷入**或者**不保留配置**进行升级。
+          🔗 [Cowtransfer-2](${{ steps.cowtransfer.outputs.url }})
+          🔗 [WeTransfer-2](${{ steps.wetransfer.outputs.url }})
+          This is OpenWrt firmware for Amlogic S9xxx STB
+          * Firmware information
+          Default IP: 192.168.3.254
+          Default username: root
+          Default password: password
+          Default WIFI name: OpenWrt
+          Default WIFI password: none
+          Install to EMMC: Login to OpenWrt → System → Amlogic Service → Install OpenWrt
+          ${{ env.useVersionInfo }}
+
+    - name: Send telegram message on push
+      uses: appleboy/telegram-action@master
+      if: env.UPLOAD_RELEASE == 'true' && env.DELETE_RELEASE == 'true' && !cancelled()
+      with:
+        to: ${{ secrets.TELEGRAM_TO }}
+        token: ${{ secrets.TELEGRAM_TOKEN }}
+        message: |
+          ${{ github.actor }} created commit:
+          Commit message: ${{ github.event.commits[0].message }}
+          
+          Repository: ${{ github.repository }}
+          
+          See changes: https://github.com/${{ github.repository }}/commit/${{github.sha}}
+
+    - name: Upload Bin Folder
+      uses: actions/upload-artifact@main
+      if: steps.compile.outputs.status == 'success' && !cancelled()
+      with:
+        name: bin
+        path: openwrt/bin
+
+  Upload:
+    needs: [Build]
+    runs-on: ubuntu-20.04
+    #if: github.repository == 'vpei/openwrt-s905d-n1'
+    if: github.event.repository.owner.id == github.event.sender.id
+    steps:
+      - name: Checkout
+        uses: actions/checkout@main
+
+      - name: Restore Variables
+        run: |
+          echo "OPENWRTROOT=$(echo '${{needs.Build.outputs.OPENWRTROOT}}')" >> $GITHUB_ENV
+          echo "PLATFORM=$(echo '${{needs.Build.outputs.PLATFORM}}')" >> $GITHUB_ENV
+          echo "TARGET=$(echo '${{needs.Build.outputs.TARGET}}')" >> $GITHUB_ENV
+          echo "SUBTARGET=$(echo '${{needs.Build.outputs.SUBTARGET}}')" >> $GITHUB_ENV
+          echo "FIRMWARE=$(echo '${{needs.Build.outputs.FIRMWARE}}')" >> $GITHUB_ENV
+          echo "GENERATE_STATUS=$(echo '${{needs.Build.outputs.GENERATE_STATUS}}')" >> $GITHUB_ENV
+
+      - name: Upload Bin Folder
+        uses: actions/upload-artifact@main
+        if: steps.compile.outputs.status == 'success' && !cancelled()
+        with:
+          #name: bin-archive
+          name: bin
+          path: openwrt/bin
+
+      #- name: Download Bin Folder
+        #uses: actions/download-artifact@v2
+        ##if: env.GENERATE_STATUS == 'success'
+        #with:
+          #name: bin
+          ##name: bin-archive
+          #path: openwrt/bin
+
+      #- name: Deploy Packages-Server
+        ##if: env.GENERATE_STATUS == 'success'
+        #run: |
+          #mkdir -p server/web/snapshots/targets/$TARGET/$SUBTARGET
+          #cp -r $OPENWRTROOT/bin/packages server/web/snapshots
+          #cp -r $OPENWRTROOT/bin/targets/$TARGET/$SUBTARGET/packages server/web/snapshots/targets/$TARGET/$SUBTARGET
+          #mv server packages-server
+          #zip -qrm packages-server.zip packages-server
+          #mv packages-server.zip $OPENWRTROOT/bin/targets/$TARGET/$SUBTARGET
+
+      #- name: Organize Files
+        #id: organize
+        ##if: env.GENERATE_STATUS == 'success'
+        #run: |
+          #cd ${FIRMWARE}
+          #rm -rf packages
+          #cd $OPENWRTROOT/bin/targets/$TARGET/
+          #curl -fsSL git.io/file-transfer | sh
+          #df -hT $PWD
+          #echo "::set-output name=ORGANIZE_STATUS::success"
+
+      #- name: Upload Firmware To WeTransfer
+        #id: wetransfer
+        #if: steps.organize.outputs.ORGANIZE_STATUS == 'success' && env.UPLOAD_WETRANSFER == 'true'
+        #run: |
+          #cd $OPENWRTROOT/bin/targets/$TARGET/
+          #./transfer wet -s -p 16 --no-progress ${FIRMWARE} 2>&1 | tee wetransfer.log
+          #echo "::warning file=Firmware-Wetransfer.com::$(cat wetransfer.log | grep https)"
+          #echo "::set-output name=url::$(cat wetransfer.log | grep https | cut -f3 -d" ")"
+
+      #- name: Upload Firmware To CowTransfer
+        #id: cowtransfer
+        #if: steps.organize.outputs.ORGANIZE_STATUS == 'success' && env.UPLOAD_COWTRANSFER == 'true'
+        #run: |
+          #cd $OPENWRTROOT/bin/targets/$TARGET/
+          #./transfer cow --block 2621440 -s -p 64 --no-progress ${FIRMWARE} 2>&1 | tee cowtransfer.log
+          #echo "::warning file=Firmware-Cowtransfer.com::$(cat cowtransfer.log | grep https)"
+          #echo "::set-output name=url::$(cat cowtransfer.log | grep https | cut -f3 -d" ")"
+
+      #- name: Generate release Tag
+        #id: tag-release
+        #if: steps.organize.outputs.ORGANIZE_STATUS == 'success' && env.UPLOAD_RELEASE == 'true' && !cancelled()
+        #run: |
+          #echo "::set-output name=release_tag::$(date +"%Y.%m.%d")-Lean1"
+          #echo "::set-output name=release_date::$(date +"%Y.%m.%d")"
+          #touch release.txt
+          #[ $UPLOAD_COWTRANSFER = true ] && echo "🔗 [Cowtransfer-3](${{ steps.cowtransfer.outputs.url }})" >> release.txt
+          #[ $UPLOAD_WETRANSFER = true ] && echo "🔗 [WeTransfer-3](${{ steps.wetransfer.outputs.url }})" >> release.txt
+          #echo "::set-output name=status::success"
+
+      #- name: Upload firmware to release
+        #uses: softprops/action-gh-release@v1
+        #if: steps.tag-release.outputs.status == 'success' && !cancelled()
+        #env:
+          #GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        #with:
+          #name: ${{ steps.tag-release.outputs.release_date }} NanoPi-R4S formal edition_Docker版_全插件
+          #tag_name: ${{ steps.tag-release.outputs.release_tag }}
+          #body_path: release.txt
+          #files: ${{ env.FIRMWARE }}/*
+
+      - name: Delete older workflow runs and artifacts
+        uses: Mattraks/delete-workflow-runs@main
+        if: env.DELETE_ARTIFACTS == 'true'
+        with:
+          token: ${{ secrets.GITHUB_TOKEN }}
+          repository: ${{ github.repository }}
+          retain_days: ${{ env.KEEP_DAY }}
+          keep_minimum_runs: ${{ env.KEEP_MININUM_RUNS }}
+
+      - name: Remove old Releases
+        uses: dev-drprasad/delete-older-releases@v0.2.0
+        if: env.UPLOAD_RELEASE == 'true' && !cancelled()
+        env:
+            GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        with:
+            #repo:
+            keep_latest: 30
+            #delete_tag_pattern:
+            delete_tags: true
+
+      - name: Delete Artifacts
+        uses: geekyeggo/delete-artifact@v1
+        if: steps.compile.outputs.status == 'success' && !cancelled()
+        with:
+          name: |
+            #openwrt_*
+            bin
+
+      - name: Send telegram message on push
+        uses: appleboy/telegram-action@master
+        if: env.UPLOAD_RELEASE == 'true' && env.DELETE_RELEASE == 'true' && !cancelled()
+        with:
+          to: ${{ secrets.TELEGRAM_TO }}
+          token: ${{ secrets.TELEGRAM_TOKEN }}
+          message: |
+            name: ${{ steps.tag-release.outputs.release_date }} NanoPi-R4S formal edition_Docker版 - 全插件
+            tag_name: ${{ steps.tag-release.outputs.release_tag }}
+            body_path: release.txt
+            files: ${{ env.FIRMWARE }}/*

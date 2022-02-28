@@ -1,0 +1,163 @@
+---
+allow-lan: true
+external-controller: 0.0.0.0:9090
+log-level: info
+mode: Rule
+port: 7890
+proxies:
+- name: _03
+  type: ss
+  server: 134.195.196.163
+  port: 7307
+  cipher: aes-256-gcm
+  password: FoOiGlkAA9yPEGP
+- name: _05
+  type: ss
+  server: 134.195.196.133
+  port: 7307
+  cipher: aes-256-gcm
+  password: FoOiGlkAA9yPEGP
+- name: _15
+  type: ss
+  server: 198.57.27.218
+  port: 8090
+  cipher: aes-256-gcm
+  password: PCnnH6SQSnfoS27
+- name: _19
+  type: ss
+  server: 167.88.63.108
+  port: 8091
+  cipher: aes-256-gcm
+  password: PCnnH6SQSnfoS27
+- name: _34
+  type: ss
+  server: 167.88.63.99
+  port: 2376
+  cipher: aes-256-gcm
+  password: faBAoD54k87UJG7
+- name: _36
+  type: ss
+  server: 146.70.27.12
+  port: 40093
+  cipher: aes-256-gcm
+  password: x23Z4LGkGDkThZ9Kaz4DURQp
+- name: _61
+  type: ss
+  server: 38.107.226.149
+  port: 2376
+  cipher: aes-256-gcm
+  password: faBAoD54k87UJG7
+- name: _64
+  type: ss
+  server: 46.29.218.6
+  port: 8090
+  cipher: aes-256-gcm
+  password: PCnnH6SQSnfoS27
+proxy-groups:
+- name: "\U0001F530 节点选择"
+  type: select
+  proxies:
+  - "♻️ 自动选择"
+  - "\U0001F3AF 全球直连"
+- name: "♻️ 自动选择"
+  type: url-test
+  url: http://www.gstatic.com/generate_204
+  interval: '300'
+- name: "\U0001F30D 国外媒体"
+  type: select
+  proxies:
+  - "\U0001F530 节点选择"
+  - "♻️ 自动选择"
+  - "\U0001F3AF 全球直连"
+- name: "\U0001F30F 国内媒体"
+  type: select
+  proxies:
+  - "\U0001F3AF 全球直连"
+  - "\U0001F530 节点选择"
+- name: Ⓜ️ 微软服务
+  type: select
+  proxies:
+  - "\U0001F3AF 全球直连"
+  - "\U0001F530 节点选择"
+- name: "\U0001F4F2 电报信息"
+  type: select
+  proxies:
+  - "\U0001F530 节点选择"
+  - "\U0001F3AF 全球直连"
+- name: "\U0001F34E 苹果服务"
+  type: select
+  proxies:
+  - "\U0001F530 节点选择"
+  - "\U0001F3AF 全球直连"
+  - "♻️ 自动选择"
+- name: "\U0001F3AF 全球直连"
+  type: select
+  proxies:
+  - DIRECT
+- name: "\U0001F6D1 全球拦截"
+  type: select
+  proxies:
+  - REJECT
+  - DIRECT
+- name: "\U0001F41F 漏网之鱼"
+  type: select
+  proxies:
+  - "\U0001F530 节点选择"
+  - "\U0001F3AF 全球直连"
+  - "♻️ 自动选择"
+rules:
+- IP-CIDR,198.18.0.1/16,REJECT,no-resolve
+- RULE-SET,Unbreak,DIRECT
+- RULE-SET,Streaming,GlobalTV
+- RULE-SET,StreamingSE,AsianTV
+- RULE-SET,Global,Proxy
+- RULE-SET,China,Domestic
+- IP-CIDR,192.168.0.0/16,DIRECT
+- IP-CIDR,10.0.0.0/8,DIRECT
+- IP-CIDR,172.16.0.0/12,DIRECT
+- IP-CIDR,127.0.0.0/8,DIRECT
+- IP-CIDR,100.64.0.0/10,DIRECT
+- IP-CIDR,224.0.0.0/4,DIRECT
+- IP-CIDR,fe80::/10,DIRECT
+- RULE-SET,ChinaIP,Domestic
+- IP-CIDR,119.28.28.28/32,DIRECT
+- IP-CIDR,182.254.116.0/24,DIRECT
+- MATCH,Others
+socks-port: 7891
+rule-providers:
+  Unbreak:
+    type: http
+    behavior: classical
+    path: "./rule_provider/Unbreak.yaml"
+    url: https://raw.githubusercontent.com/DivineEngine/Profiles/master/Clash/RuleSet/Unbreak.yaml
+    interval: 86400
+  Streaming:
+    type: http
+    behavior: classical
+    path: "./rule_provider/Streaming.yaml"
+    url: https://raw.githubusercontent.com/DivineEngine/Profiles/master/Clash/RuleSet/StreamingMedia/Streaming.yaml
+    interval: 86400
+  StreamingSE:
+    type: http
+    behavior: classical
+    path: "./rule_provider/StreamingSE.yaml"
+    url: https://raw.githubusercontent.com/DivineEngine/Profiles/master/Clash/RuleSet/StreamingMedia/StreamingSE.yaml
+    interval: 86400
+  Global:
+    type: http
+    behavior: classical
+    path: "./rule_provider/Global.yaml"
+    url: https://raw.githubusercontent.com/DivineEngine/Profiles/master/Clash/RuleSet/Global.yaml
+    interval: 86400
+  China:
+    type: http
+    behavior: classical
+    path: "./rule_provider/China.yaml"
+    url: https://raw.githubusercontent.com/DivineEngine/Profiles/master/Clash/RuleSet/China.yaml
+    interval: 86400
+  ChinaIP:
+    type: http
+    behavior: ipcidr
+    path: "./rule_provider/ChinaIP.yaml"
+    url: https://raw.githubusercontent.com/DivineEngine/Profiles/master/Clash/RuleSet/Extra/ChinaIP.yaml
+    interval: 86400

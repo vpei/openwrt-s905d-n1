@@ -1,0 +1,1318 @@
+---
+proxies:
+- name: _15
+  type: ss
+  server: 198.57.27.218
+  port: 8090
+  cipher: aes-256-gcm
+  password: PCnnH6SQSnfoS27
+- name: _34
+  type: ss
+  server: 167.88.63.99
+  port: 2376
+  cipher: aes-256-gcm
+  password: faBAoD54k87UJG7
+- name: _36
+  type: ss
+  server: 146.70.27.12
+  port: 40093
+  cipher: aes-256-gcm
+  password: x23Z4LGkGDkThZ9Kaz4DURQp
+- name: _64
+  type: ss
+  server: 46.29.218.6
+  port: 8090
+  cipher: aes-256-gcm
+  password: PCnnH6SQSnfoS27
+- name: _12
+  type: ss
+  server: 167.88.63.99
+  port: 2376
+  cipher: aes-256-gcm
+  password: faBAoD54k87UJG7
+- name: _21
+  type: ss
+  server: 167.88.63.82
+  port: 8091
+  cipher: aes-256-gcm
+  password: PCnnH6SQSnfoS27
+- name: _35
+  type: ss
+  server: 167.88.63.82
+  port: 7306
+  cipher: aes-256-gcm
+  password: FoOiGlkAA9yPEGP
+- name: _43
+  type: ss
+  server: 38.107.226.146
+  port: 7306
+  cipher: aes-256-gcm
+  password: FoOiGlkAA9yPEGP
+- name: Pool__46
+  type: ss
+  server: 82.102.26.93
+  port: 42185
+  cipher: aes-256-gcm
+  password: FaTG4zALZru72gxjgSHQ7Jdh
+- name: _47
+  type: ss
+  server: 46.29.218.6
+  port: 2376
+  cipher: aes-256-gcm
+  password: faBAoD54k87UJG7
+- name: _57
+  type: ss
+  server: 167.88.63.11
+  port: 7307
+  cipher: aes-256-gcm
+  password: FoOiGlkAA9yPEGP
+- name: _59
+  type: ss
+  server: 167.88.63.119
+  port: 7306
+  cipher: aes-256-gcm
+  password: FoOiGlkAA9yPEGP
+- name: _66
+  type: ss
+  server: 167.88.63.119
+  port: 7307
+  cipher: aes-256-gcm
+  password: FoOiGlkAA9yPEGP
+- name: _68
+  type: ss
+  server: 172.99.190.35
+  port: 8090
+  cipher: aes-256-gcm
+  password: PCnnH6SQSnfoS27
+- name: _69
+  type: ss
+  server: 198.57.27.225
+  port: 2375
+  cipher: aes-256-gcm
+  password: faBAoD54k87UJG7
+- name: _70
+  type: ss
+  server: 167.88.63.99
+  port: 7306
+  cipher: aes-256-gcm
+  password: FoOiGlkAA9yPEGP
+- name: _71
+  type: ss
+  server: 167.88.63.82
+  port: 7307
+  cipher: aes-256-gcm
+  password: FoOiGlkAA9yPEGP
+- name: "\U0001F1F7\U0001F1FA Relay_-\U0001F1F7\U0001F1FARU_72"
+  type: trojan
+  server: t7.ssrsub.com
+  port: 844
+  password: 52f31fcb-f948-4f71-bca8-795fdcf7b754
+  sni: t7.ssrsub.com
+- name: "\U0001F1F7\U0001F1FA Relay_-\U0001F1F7\U0001F1FARU_73"
+  type: trojan
+  server: t3.ssrsub.com
+  port: 844
+  password: f5487ee3-aef5-436f-adf9-673b1afe2ff7
+  sni: t3.ssrsub.com
+- name: "[10-30]|oslook|中国香港/中国台湾CNChina/Shenzhen/可能是中转节点_9"
+  type: vmess
+  server: 183.232.226.137
+  port: 11110
+  uuid: f37bcc5b-6071-3588-a25d-d7747e4c648f
+  alterId: 2
+  cipher: auto
+  tls: false
+  network: ws
+  ws-path: "/vvv"
+  ws-headers:
+    Host: t.me/vpnhat
+- name: "[10-30]|oslook|美国USUSA/San Jose_10"
+  type: vmess
+  server: usgia.jjyun.ren
+  port: 88
+  uuid: e0dc26b2-9db5-4d92-98d0-b8cc1bfb23ac
+  alterId: 10
+  cipher: auto
+  tls: false
+  network: ws
+  ws-path: "/jjyun"
+- name: _03
+  type: ss
+  server: 134.195.196.163
+  port: 7307
+  cipher: aes-256-gcm
+  password: FoOiGlkAA9yPEGP
+- name: _05
+  type: ss
+  server: 134.195.196.133
+  port: 7307
+  cipher: aes-256-gcm
+  password: FoOiGlkAA9yPEGP
+- name: _19
+  type: ss
+  server: 167.88.63.108
+  port: 8091
+  cipher: aes-256-gcm
+  password: PCnnH6SQSnfoS27
+- name: _61
+  type: ss
+  server: 38.107.226.149
+  port: 2376
+  cipher: aes-256-gcm
+  password: faBAoD54k87UJG7
+proxy-groups:
+- name: Auto - UrlTest
+  type: url-test
+  proxies:
+  - _15
+  - _34
+  - _36
+  - _64
+  - _12
+  - _21
+  - _35
+  - _43
+  - Pool__46
+  - _47
+  - _57
+  - _59
+  - _66
+  - _68
+  - _69
+  - _70
+  - _71
+  - "\U0001F1F7\U0001F1FA Relay_-\U0001F1F7\U0001F1FARU_72"
+  - "\U0001F1F7\U0001F1FA Relay_-\U0001F1F7\U0001F1FARU_73"
+  - "[10-30]|oslook|中国香港/中国台湾CNChina/Shenzhen/可能是中转节点_9"
+  - "[10-30]|oslook|美国USUSA/San Jose_10"
+  - _03
+  - _05
+  - _19
+  - _61
+  url: https://cp.cloudflare.com/generate_204
+  interval: '600'
+  tolerance: '150'
+- name: Proxy
+  type: select
+  proxies:
+  - Auto - UrlTest
+  - DIRECT
+  - _15
+  - _34
+  - _36
+  - _64
+  - _12
+  - _21
+  - _35
+  - _43
+  - Pool__46
+  - _47
+  - _57
+  - _59
+  - _66
+  - _68
+  - _69
+  - _70
+  - _71
+  - "\U0001F1F7\U0001F1FA Relay_-\U0001F1F7\U0001F1FARU_72"
+  - "\U0001F1F7\U0001F1FA Relay_-\U0001F1F7\U0001F1FARU_73"
+  - "[10-30]|oslook|中国香港/中国台湾CNChina/Shenzhen/可能是中转节点_9"
+  - "[10-30]|oslook|美国USUSA/San Jose_10"
+  - _03
+  - _05
+  - _19
+  - _61
+- name: Domestic
+  type: select
+  proxies:
+  - DIRECT
+  - Proxy
+- name: Others
+  type: select
+  proxies:
+  - Proxy
+  - DIRECT
+  - Domestic
+- name: Microsoft
+  type: select
+  proxies:
+  - DIRECT
+  - Proxy
+- name: Apple
+  type: select
+  proxies:
+  - DIRECT
+  - Proxy
+  - _15
+  - _34
+  - _36
+  - _64
+  - _12
+  - _21
+  - _35
+  - _43
+  - Pool__46
+  - _47
+  - _57
+  - _59
+  - _66
+  - _68
+  - _69
+  - _70
+  - _71
+  - "\U0001F1F7\U0001F1FA Relay_-\U0001F1F7\U0001F1FARU_72"
+  - "\U0001F1F7\U0001F1FA Relay_-\U0001F1F7\U0001F1FARU_73"
+  - "[10-30]|oslook|中国香港/中国台湾CNChina/Shenzhen/可能是中转节点_9"
+  - "[10-30]|oslook|美国USUSA/San Jose_10"
+  - _03
+  - _05
+  - _19
+  - _61
+- name: Scholar
+  type: select
+  proxies:
+  - DIRECT
+  - Proxy
+  - _15
+  - _34
+  - _36
+  - _64
+  - _12
+  - _21
+  - _35
+  - _43
+  - Pool__46
+  - _47
+  - _57
+  - _59
+  - _66
+  - _68
+  - _69
+  - _70
+  - _71
+  - "\U0001F1F7\U0001F1FA Relay_-\U0001F1F7\U0001F1FARU_72"
+  - "\U0001F1F7\U0001F1FA Relay_-\U0001F1F7\U0001F1FARU_73"
+  - "[10-30]|oslook|中国香港/中国台湾CNChina/Shenzhen/可能是中转节点_9"
+  - "[10-30]|oslook|美国USUSA/San Jose_10"
+  - _03
+  - _05
+  - _19
+  - _61
+- name: Bilibili
+  type: select
+  proxies:
+  - AsianTV
+  - DIRECT
+  - _15
+  - _34
+  - _36
+  - _64
+  - _12
+  - _21
+  - _35
+  - _43
+  - Pool__46
+  - _47
+  - _57
+  - _59
+  - _66
+  - _68
+  - _69
+  - _70
+  - _71
+  - "\U0001F1F7\U0001F1FA Relay_-\U0001F1F7\U0001F1FARU_72"
+  - "\U0001F1F7\U0001F1FA Relay_-\U0001F1F7\U0001F1FARU_73"
+  - "[10-30]|oslook|中国香港/中国台湾CNChina/Shenzhen/可能是中转节点_9"
+  - "[10-30]|oslook|美国USUSA/San Jose_10"
+  - _03
+  - _05
+  - _19
+  - _61
+- name: Bahamut
+  type: select
+  proxies:
+  - GlobalTV
+  - DIRECT
+  - _15
+  - _34
+  - _36
+  - _64
+  - _12
+  - _21
+  - _35
+  - _43
+  - Pool__46
+  - _47
+  - _57
+  - _59
+  - _66
+  - _68
+  - _69
+  - _70
+  - _71
+  - "\U0001F1F7\U0001F1FA Relay_-\U0001F1F7\U0001F1FARU_72"
+  - "\U0001F1F7\U0001F1FA Relay_-\U0001F1F7\U0001F1FARU_73"
+  - "[10-30]|oslook|中国香港/中国台湾CNChina/Shenzhen/可能是中转节点_9"
+  - "[10-30]|oslook|美国USUSA/San Jose_10"
+  - _03
+  - _05
+  - _19
+  - _61
+- name: HBO
+  type: select
+  proxies:
+  - GlobalTV
+  - DIRECT
+  - _15
+  - _34
+  - _36
+  - _64
+  - _12
+  - _21
+  - _35
+  - _43
+  - Pool__46
+  - _47
+  - _57
+  - _59
+  - _66
+  - _68
+  - _69
+  - _70
+  - _71
+  - "\U0001F1F7\U0001F1FA Relay_-\U0001F1F7\U0001F1FARU_72"
+  - "\U0001F1F7\U0001F1FA Relay_-\U0001F1F7\U0001F1FARU_73"
+  - "[10-30]|oslook|中国香港/中国台湾CNChina/Shenzhen/可能是中转节点_9"
+  - "[10-30]|oslook|美国USUSA/San Jose_10"
+  - _03
+  - _05
+  - _19
+  - _61
+- name: Pornhub
+  type: select
+  proxies:
+  - GlobalTV
+  - DIRECT
+  - _15
+  - _34
+  - _36
+  - _64
+  - _12
+  - _21
+  - _35
+  - _43
+  - Pool__46
+  - _47
+  - _57
+  - _59
+  - _66
+  - _68
+  - _69
+  - _70
+  - _71
+  - "\U0001F1F7\U0001F1FA Relay_-\U0001F1F7\U0001F1FARU_72"
+  - "\U0001F1F7\U0001F1FA Relay_-\U0001F1F7\U0001F1FARU_73"
+  - "[10-30]|oslook|中国香港/中国台湾CNChina/Shenzhen/可能是中转节点_9"
+  - "[10-30]|oslook|美国USUSA/San Jose_10"
+  - _03
+  - _05
+  - _19
+  - _61
+- name: Netflix
+  type: select
+  proxies:
+  - GlobalTV
+  - DIRECT
+  - _15
+  - _34
+  - _36
+  - _64
+  - _12
+  - _21
+  - _35
+  - _43
+  - Pool__46
+  - _47
+  - _57
+  - _59
+  - _66
+  - _68
+  - _69
+  - _70
+  - _71
+  - "\U0001F1F7\U0001F1FA Relay_-\U0001F1F7\U0001F1FARU_72"
+  - "\U0001F1F7\U0001F1FA Relay_-\U0001F1F7\U0001F1FARU_73"
+  - "[10-30]|oslook|中国香港/中国台湾CNChina/Shenzhen/可能是中转节点_9"
+  - "[10-30]|oslook|美国USUSA/San Jose_10"
+  - _03
+  - _05
+  - _19
+  - _61
+- name: Disney
+  type: select
+  proxies:
+  - GlobalTV
+  - DIRECT
+  - _15
+  - _34
+  - _36
+  - _64
+  - _12
+  - _21
+  - _35
+  - _43
+  - Pool__46
+  - _47
+  - _57
+  - _59
+  - _66
+  - _68
+  - _69
+  - _70
+  - _71
+  - "\U0001F1F7\U0001F1FA Relay_-\U0001F1F7\U0001F1FARU_72"
+  - "\U0001F1F7\U0001F1FA Relay_-\U0001F1F7\U0001F1FARU_73"
+  - "[10-30]|oslook|中国香港/中国台湾CNChina/Shenzhen/可能是中转节点_9"
+  - "[10-30]|oslook|美国USUSA/San Jose_10"
+  - _03
+  - _05
+  - _19
+  - _61
+- name: Youtube
+  type: select
+  disable-udp: true
+  proxies:
+  - GlobalTV
+  - DIRECT
+  - _15
+  - _34
+  - _36
+  - _64
+  - _12
+  - _21
+  - _35
+  - _43
+  - Pool__46
+  - _47
+  - _57
+  - _59
+  - _66
+  - _68
+  - _69
+  - _70
+  - _71
+  - "\U0001F1F7\U0001F1FA Relay_-\U0001F1F7\U0001F1FARU_72"
+  - "\U0001F1F7\U0001F1FA Relay_-\U0001F1F7\U0001F1FARU_73"
+  - "[10-30]|oslook|中国香港/中国台湾CNChina/Shenzhen/可能是中转节点_9"
+  - "[10-30]|oslook|美国USUSA/San Jose_10"
+  - _03
+  - _05
+  - _19
+  - _61
+- name: Spotify
+  type: select
+  proxies:
+  - GlobalTV
+  - DIRECT
+  - _15
+  - _34
+  - _36
+  - _64
+  - _12
+  - _21
+  - _35
+  - _43
+  - Pool__46
+  - _47
+  - _57
+  - _59
+  - _66
+  - _68
+  - _69
+  - _70
+  - _71
+  - "\U0001F1F7\U0001F1FA Relay_-\U0001F1F7\U0001F1FARU_72"
+  - "\U0001F1F7\U0001F1FA Relay_-\U0001F1F7\U0001F1FARU_73"
+  - "[10-30]|oslook|中国香港/中国台湾CNChina/Shenzhen/可能是中转节点_9"
+  - "[10-30]|oslook|美国USUSA/San Jose_10"
+  - _03
+  - _05
+  - _19
+  - _61
+- name: Steam
+  type: select
+  proxies:
+  - DIRECT
+  - Proxy
+  - _15
+  - _34
+  - _36
+  - _64
+  - _12
+  - _21
+  - _35
+  - _43
+  - Pool__46
+  - _47
+  - _57
+  - _59
+  - _66
+  - _68
+  - _69
+  - _70
+  - _71
+  - "\U0001F1F7\U0001F1FA Relay_-\U0001F1F7\U0001F1FARU_72"
+  - "\U0001F1F7\U0001F1FA Relay_-\U0001F1F7\U0001F1FARU_73"
+  - "[10-30]|oslook|中国香港/中国台湾CNChina/Shenzhen/可能是中转节点_9"
+  - "[10-30]|oslook|美国USUSA/San Jose_10"
+  - _03
+  - _05
+  - _19
+  - _61
+- name: AdBlock
+  type: select
+  proxies:
+  - REJECT
+  - DIRECT
+  - Proxy
+- name: AsianTV
+  type: select
+  proxies:
+  - DIRECT
+  - Proxy
+  - _15
+  - _34
+  - _36
+  - _64
+  - _12
+  - _21
+  - _35
+  - _43
+  - Pool__46
+  - _47
+  - _57
+  - _59
+  - _66
+  - _68
+  - _69
+  - _70
+  - _71
+  - "\U0001F1F7\U0001F1FA Relay_-\U0001F1F7\U0001F1FARU_72"
+  - "\U0001F1F7\U0001F1FA Relay_-\U0001F1F7\U0001F1FARU_73"
+  - "[10-30]|oslook|中国香港/中国台湾CNChina/Shenzhen/可能是中转节点_9"
+  - "[10-30]|oslook|美国USUSA/San Jose_10"
+  - _03
+  - _05
+  - _19
+  - _61
+- name: GlobalTV
+  type: select
+  proxies:
+  - Proxy
+  - DIRECT
+  - _15
+  - _34
+  - _36
+  - _64
+  - _12
+  - _21
+  - _35
+  - _43
+  - Pool__46
+  - _47
+  - _57
+  - _59
+  - _66
+  - _68
+  - _69
+  - _70
+  - _71
+  - "\U0001F1F7\U0001F1FA Relay_-\U0001F1F7\U0001F1FARU_72"
+  - "\U0001F1F7\U0001F1FA Relay_-\U0001F1F7\U0001F1FARU_73"
+  - "[10-30]|oslook|中国香港/中国台湾CNChina/Shenzhen/可能是中转节点_9"
+  - "[10-30]|oslook|美国USUSA/San Jose_10"
+  - _03
+  - _05
+  - _19
+  - _61
+- name: Speedtest
+  type: select
+  proxies:
+  - Proxy
+  - DIRECT
+  - _15
+  - _34
+  - _36
+  - _64
+  - _12
+  - _21
+  - _35
+  - _43
+  - Pool__46
+  - _47
+  - _57
+  - _59
+  - _66
+  - _68
+  - _69
+  - _70
+  - _71
+  - "\U0001F1F7\U0001F1FA Relay_-\U0001F1F7\U0001F1FARU_72"
+  - "\U0001F1F7\U0001F1FA Relay_-\U0001F1F7\U0001F1FARU_73"
+  - "[10-30]|oslook|中国香港/中国台湾CNChina/Shenzhen/可能是中转节点_9"
+  - "[10-30]|oslook|美国USUSA/San Jose_10"
+  - _03
+  - _05
+  - _19
+  - _61
+- name: Telegram
+  type: select
+  proxies:
+  - Proxy
+  - DIRECT
+  - _15
+  - _34
+  - _36
+  - _64
+  - _12
+  - _21
+  - _35
+  - _43
+  - Pool__46
+  - _47
+  - _57
+  - _59
+  - _66
+  - _68
+  - _69
+  - _70
+  - _71
+  - "\U0001F1F7\U0001F1FA Relay_-\U0001F1F7\U0001F1FARU_72"
+  - "\U0001F1F7\U0001F1FA Relay_-\U0001F1F7\U0001F1FARU_73"
+  - "[10-30]|oslook|中国香港/中国台湾CNChina/Shenzhen/可能是中转节点_9"
+  - "[10-30]|oslook|美国USUSA/San Jose_10"
+  - _03
+  - _05
+  - _19
+  - _61
+- name: PayPal
+  type: select
+  proxies:
+  - DIRECT
+  - Proxy
+  - _15
+  - _34
+  - _36
+  - _64
+  - _12
+  - _21
+  - _35
+  - _43
+  - Pool__46
+  - _47
+  - _57
+  - _59
+  - _66
+  - _68
+  - _69
+  - _70
+  - _71
+  - "\U0001F1F7\U0001F1FA Relay_-\U0001F1F7\U0001F1FARU_72"
+  - "\U0001F1F7\U0001F1FA Relay_-\U0001F1F7\U0001F1FARU_73"
+  - "[10-30]|oslook|中国香港/中国台湾CNChina/Shenzhen/可能是中转节点_9"
+  - "[10-30]|oslook|美国USUSA/San Jose_10"
+  - _03
+  - _05
+  - _19
+  - _61
+rules:
+- IP-CIDR,198.18.0.1/16,REJECT,no-resolve
+- DOMAIN-SUFFIX,awesome-hd.me,DIRECT
+- DOMAIN-SUFFIX,broadcasthe.net,DIRECT
+- DOMAIN-SUFFIX,chdbits.co,DIRECT
+- DOMAIN-SUFFIX,classix-unlimited.co.uk,DIRECT
+- DOMAIN-SUFFIX,empornium.me,DIRECT
+- DOMAIN-SUFFIX,gazellegames.net,DIRECT
+- DOMAIN-SUFFIX,hdchina.org,DIRECT
+- DOMAIN-SUFFIX,hdsky.me,DIRECT
+- DOMAIN-SUFFIX,icetorrent.org,DIRECT
+- DOMAIN-SUFFIX,jpopsuki.eu,DIRECT
+- DOMAIN-SUFFIX,icetorrent.org,DIRECT
+- DOMAIN-SUFFIX,keepfrds.com,DIRECT
+- DOMAIN-SUFFIX,madsrevolution.net,DIRECT
+- DOMAIN-SUFFIX,m-team.cc,DIRECT
+- DOMAIN-SUFFIX,nanyangpt.com,DIRECT
+- DOMAIN-SUFFIX,ncore.cc,DIRECT
+- DOMAIN-SUFFIX,open.cd,DIRECT
+- DOMAIN-SUFFIX,ourbits.club,DIRECT
+- DOMAIN-SUFFIX,passthepopcorn.me,DIRECT
+- DOMAIN-SUFFIX,privatehd.to,DIRECT
+- DOMAIN-SUFFIX,redacted.ch,DIRECT
+- DOMAIN-SUFFIX,springsunday.net,DIRECT
+- DOMAIN-SUFFIX,tjupt.org,DIRECT
+- DOMAIN-SUFFIX,totheglory.im,DIRECT
+- DOMAIN-KEYWORD,announce,DIRECT
+- DOMAIN-KEYWORD,torrent,DIRECT
+- RULE-SET,Reject,AdBlock
+- RULE-SET,Special,DIRECT
+- RULE-SET,Netflix,Netflix
+- RULE-SET,Spotify,Spotify
+- RULE-SET,YouTube,Youtube
+- RULE-SET,Disney Plus,Disney
+- RULE-SET,Bilibili,Bilibili
+- RULE-SET,iQiyi,AsianTV
+- RULE-SET,Letv,AsianTV
+- RULE-SET,Netease Music,AsianTV
+- RULE-SET,Tencent Video,AsianTV
+- RULE-SET,Youku,AsianTV
+- RULE-SET,WeTV,AsianTV
+- RULE-SET,ABC,GlobalTV
+- RULE-SET,Abema TV,GlobalTV
+- RULE-SET,Amazon,GlobalTV
+- RULE-SET,Apple News,GlobalTV
+- RULE-SET,Apple TV,GlobalTV
+- RULE-SET,Bahamut,Bahamut
+- RULE-SET,BBC iPlayer,GlobalTV
+- RULE-SET,DAZN,GlobalTV
+- RULE-SET,Discovery Plus,GlobalTV
+- RULE-SET,encoreTVB,GlobalTV
+- RULE-SET,Fox Now,GlobalTV
+- RULE-SET,Fox+,GlobalTV
+- RULE-SET,HBO,HBO
+- RULE-SET,Hulu Japan,GlobalTV
+- RULE-SET,Hulu,GlobalTV
+- RULE-SET,Japonx,GlobalTV
+- RULE-SET,JOOX,GlobalTV
+- RULE-SET,KKBOX,GlobalTV
+- RULE-SET,KKTV,GlobalTV
+- RULE-SET,Line TV,GlobalTV
+- RULE-SET,myTV SUPER,GlobalTV
+- RULE-SET,Pandora,GlobalTV
+- RULE-SET,PBS,GlobalTV
+- RULE-SET,Pornhub,Pornhub
+- RULE-SET,Soundcloud,GlobalTV
+- RULE-SET,ViuTV,GlobalTV
+- RULE-SET,Telegram,Telegram
+- RULE-SET,Steam,Steam
+- RULE-SET,Speedtest,Speedtest
+- RULE-SET,PayPal,PayPal
+- RULE-SET,Microsoft,Microsoft
+- RULE-SET,PROXY,Proxy
+- RULE-SET,Apple,Apple
+- RULE-SET,Scholar,Scholar
+- RULE-SET,Domestic,Domestic
+- RULE-SET,Domestic IPs,Domestic
+- RULE-SET,LAN,DIRECT
+- GEOIP,CN,Domestic
+- DST-PORT,80,Others
+- DST-PORT,443,Others
+- DST-PORT,22,Others
+- MATCH,DIRECT
+dns:
+  nameserver:
+  - 192.168.8.254
+  - dhcp://"eth0"
+  - 114.114.114.114
+  - 119.29.29.29
+  fallback:
+  - https://doh.pub/dns-query
+  - https://dns.alidns.com/dns-query
+  - https://cloudflare-dns.com/dns-query
+  - https://dns.rubyfish.cn/dns-query
+  enable: true
+  ipv6: true
+  enhanced-mode: fake-ip
+  fake-ip-range: 198.18.0.1/16
+  listen: 0.0.0.0:7874
+  fake-ip-filter:
+  - "*.lan"
+  - "*.localdomain"
+  - "*.example"
+  - "*.invalid"
+  - "*.localhost"
+  - "*.test"
+  - "*.local"
+  - "*.home.arpa"
+  - time.*.com
+  - time.*.gov
+  - time.*.edu.cn
+  - time.*.apple.com
+  - time1.*.com
+  - time2.*.com
+  - time3.*.com
+  - time4.*.com
+  - time5.*.com
+  - time6.*.com
+  - time7.*.com
+  - ntp.*.com
+  - ntp1.*.com
+  - ntp2.*.com
+  - ntp3.*.com
+  - ntp4.*.com
+  - ntp5.*.com
+  - ntp6.*.com
+  - ntp7.*.com
+  - "*.time.edu.cn"
+  - "*.ntp.org.cn"
+  - "+.pool.ntp.org"
+  - time1.cloud.tencent.com
+  - music.163.com
+  - "*.music.163.com"
+  - "*.126.net"
+  - musicapi.taihe.com
+  - music.taihe.com
+  - songsearch.kugou.com
+  - trackercdn.kugou.com
+  - "*.kuwo.cn"
+  - api-jooxtt.sanook.com
+  - api.joox.com
+  - joox.com
+  - y.qq.com
+  - "*.y.qq.com"
+  - streamoc.music.tc.qq.com
+  - mobileoc.music.tc.qq.com
+  - isure.stream.qqmusic.qq.com
+  - dl.stream.qqmusic.qq.com
+  - aqqmusic.tc.qq.com
+  - amobile.music.tc.qq.com
+  - "*.xiami.com"
+  - "*.music.migu.cn"
+  - music.migu.cn
+  - "*.msftconnecttest.com"
+  - "*.msftncsi.com"
+  - msftconnecttest.com
+  - msftncsi.com
+  - localhost.ptlogin2.qq.com
+  - localhost.sec.qq.com
+  - "+.srv.nintendo.net"
+  - "+.stun.playstation.net"
+  - xbox.*.microsoft.com
+  - xnotify.xboxlive.com
+  - "+.battlenet.com.cn"
+  - "+.wotgame.cn"
+  - "+.wggames.cn"
+  - "+.wowsgame.cn"
+  - "+.wargaming.net"
+  - proxy.golang.org
+  - stun.*.*
+  - stun.*.*.*
+  - "+.stun.*.*"
+  - "+.stun.*.*.*"
+  - "+.stun.*.*.*.*"
+  - heartbeat.belkin.com
+  - "*.linksys.com"
+  - "*.linksyssmartwifi.com"
+  - "*.router.asus.com"
+  - mesu.apple.com
+  - swscan.apple.com
+  - swquery.apple.com
+  - swdownload.apple.com
+  - swcdn.apple.com
+  - swdist.apple.com
+  - lens.l.google.com
+  - stun.l.google.com
+  default-nameserver:
+  - 192.168.8.254
+  - 114.114.114.114
+  - 119.29.29.29
+redir-port: 7892
+tproxy-port: 7895
+port: 7890
+socks-port: 7891
+mixed-port: 7893
+mode: rule
+log-level: silent
+allow-lan: true
+external-controller: 0.0.0.0:9090
+secret: '123456'
+bind-address: "*"
+external-ui: "/usr/share/openclash/dashboard"
+ipv6: false
+profile:
+  store-selected: true
+  store-fakeip: false
+rule-providers:
+  Reject:
+    type: http
+    behavior: classical
+    url: https://cdn.jsdelivr.net/gh/lhie1/Rules@master/Clash/Provider/Reject.yaml
+    path: "./rule_provider/Reject"
+    interval: 86400
+  Special:
+    type: http
+    behavior: classical
+    url: https://cdn.jsdelivr.net/gh/lhie1/Rules@master/Clash/Provider/Special.yaml
+    path: "./rule_provider/Special"
+    interval: 86400
+  Netflix:
+    type: http
+    behavior: classical
+    url: https://cdn.jsdelivr.net/gh/lhie1/Rules@master/Clash/Provider/Media/Netflix.yaml
+    path: "./rule_provider/Netflix"
+    interval: 86400
+  Spotify:
+    type: http
+    behavior: classical
+    url: https://cdn.jsdelivr.net/gh/lhie1/Rules@master/Clash/Provider/Media/Spotify.yaml
+    path: "./rule_provider/Spotify"
+    interval: 86400
+  YouTube:
+    type: http
+    behavior: classical
+    url: https://cdn.jsdelivr.net/gh/lhie1/Rules@master/Clash/Provider/Media/YouTube.yaml
+    path: "./rule_provider/YouTube"
+    interval: 86400
+  Bilibili:
+    type: http
+    behavior: classical
+    url: https://cdn.jsdelivr.net/gh/lhie1/Rules@master/Clash/Provider/Media/Bilibili.yaml
+    path: "./rule_provider/Bilibili"
+    interval: 86400
+  iQiyi:
+    type: http
+    behavior: classical
+    url: https://cdn.jsdelivr.net/gh/lhie1/Rules@master/Clash/Provider/Media/iQiyi.yaml
+    path: "./rule_provider/iQiyi"
+    interval: 86400
+  Letv:
+    type: http
+    behavior: classical
+    url: https://cdn.jsdelivr.net/gh/lhie1/Rules@master/Clash/Provider/Media/Letv.yaml
+    path: "./rule_provider/Letv"
+    interval: 86400
+  Netease Music:
+    type: http
+    behavior: classical
+    url: https://cdn.jsdelivr.net/gh/lhie1/Rules@master/Clash/Provider/Media/Netease%20Music.yaml
+    path: "./rule_provider/Netease_Music"
+    interval: 86400
+  Tencent Video:
+    type: http
+    behavior: classical
+    url: https://cdn.jsdelivr.net/gh/lhie1/Rules@master/Clash/Provider/Media/Tencent%20Video.yaml
+    path: "./rule_provider/Tencent_Video"
+    interval: 86400
+  Youku:
+    type: http
+    behavior: classical
+    url: https://cdn.jsdelivr.net/gh/lhie1/Rules@master/Clash/Provider/Media/Youku.yaml
+    path: "./rule_provider/Youku"
+    interval: 86400
+  WeTV:
+    type: http
+    behavior: classical
+    url: https://cdn.jsdelivr.net/gh/lhie1/Rules@master/Clash/Provider/Media/WeTV.yaml
+    path: "./rule_provider/WeTV"
+    interval: 86400
+  ABC:
+    type: http
+    behavior: classical
+    url: https://cdn.jsdelivr.net/gh/lhie1/Rules@master/Clash/Provider/Media/ABC.yaml
+    path: "./rule_provider/ABC"
+    interval: 86400
+  Abema TV:
+    type: http
+    behavior: classical
+    url: https://cdn.jsdelivr.net/gh/lhie1/Rules@master/Clash/Provider/Media/Abema%20TV.yaml
+    path: "./rule_provider/Abema_TV"
+    interval: 86400
+  Amazon:
+    type: http
+    behavior: classical
+    url: https://cdn.jsdelivr.net/gh/lhie1/Rules@master/Clash/Provider/Media/Amazon.yaml
+    path: "./rule_provider/Amazon"
+    interval: 86400
+  Apple News:
+    type: http
+    behavior: classical
+    url: https://cdn.jsdelivr.net/gh/lhie1/Rules@master/Clash/Provider/Media/Apple%20News.yaml
+    path: "./rule_provider/Apple_News"
+    interval: 86400
+  Apple TV:
+    type: http
+    behavior: classical
+    url: https://cdn.jsdelivr.net/gh/lhie1/Rules@master/Clash/Provider/Media/Apple%20TV.yaml
+    path: "./rule_provider/Apple_TV"
+    interval: 86400
+  Bahamut:
+    type: http
+    behavior: classical
+    url: https://cdn.jsdelivr.net/gh/lhie1/Rules@master/Clash/Provider/Media/Bahamut.yaml
+    path: "./rule_provider/Bahamut"
+    interval: 86400
+  BBC iPlayer:
+    type: http
+    behavior: classical
+    url: https://cdn.jsdelivr.net/gh/lhie1/Rules@master/Clash/Provider/Media/BBC%20iPlayer.yaml
+    path: "./rule_provider/BBC_iPlayer"
+    interval: 86400
+  DAZN:
+    type: http
+    behavior: classical
+    url: https://cdn.jsdelivr.net/gh/lhie1/Rules@master/Clash/Provider/Media/DAZN.yaml
+    path: "./rule_provider/DAZN"
+    interval: 86400
+  Discovery Plus:
+    type: http
+    behavior: classical
+    url: https://cdn.jsdelivr.net/gh/lhie1/Rules@master/Clash/Provider/Media/Discovery%20Plus.yaml
+    path: "./rule_provider/Discovery_Plus"
+    interval: 86400
+  Disney Plus:
+    type: http
+    behavior: classical
+    url: https://cdn.jsdelivr.net/gh/lhie1/Rules@master/Clash/Provider/Media/Disney%20Plus.yaml
+    path: "./rule_provider/Disney_Plus"
+    interval: 86400
+  encoreTVB:
+    type: http
+    behavior: classical
+    url: https://cdn.jsdelivr.net/gh/lhie1/Rules@master/Clash/Provider/Media/encoreTVB.yaml
+    path: "./rule_provider/encoreTVB"
+    interval: 86400
+  Fox Now:
+    type: http
+    behavior: classical
+    url: https://cdn.jsdelivr.net/gh/lhie1/Rules@master/Clash/Provider/Media/Fox%20Now.yaml
+    path: "./rule_provider/Fox_Now"
+    interval: 86400
+  Fox+:
+    type: http
+    behavior: classical
+    url: https://cdn.jsdelivr.net/gh/lhie1/Rules@master/Clash/Provider/Media/Fox%2B.yaml
+    path: "./rule_provider/Fox+"
+    interval: 86400
+  HBO:
+    type: http
+    behavior: classical
+    url: https://cdn.jsdelivr.net/gh/lhie1/Rules@master/Clash/Provider/Media/HBO.yaml
+    path: "./rule_provider/HBO"
+    interval: 86400
+  Hulu Japan:
+    type: http
+    behavior: classical
+    url: https://cdn.jsdelivr.net/gh/lhie1/Rules@master/Clash/Provider/Media/Hulu%20Japan.yaml
+    path: "./rule_provider/Hulu_Japan"
+    interval: 86400
+  Hulu:
+    type: http
+    behavior: classical
+    url: https://cdn.jsdelivr.net/gh/lhie1/Rules@master/Clash/Provider/Media/Hulu.yaml
+    path: "./rule_provider/Hulu"
+    interval: 86400
+  Japonx:
+    type: http
+    behavior: classical
+    url: https://cdn.jsdelivr.net/gh/lhie1/Rules@master/Clash/Provider/Media/Japonx.yaml
+    path: "./rule_provider/Japonx"
+    interval: 86400
+  JOOX:
+    type: http
+    behavior: classical
+    url: https://cdn.jsdelivr.net/gh/lhie1/Rules@master/Clash/Provider/Media/JOOX.yaml
+    path: "./rule_provider/JOOX"
+    interval: 86400
+  KKBOX:
+    type: http
+    behavior: classical
+    url: https://cdn.jsdelivr.net/gh/lhie1/Rules@master/Clash/Provider/Media/KKBOX.yaml
+    path: "./rule_provider/KKBOX"
+    interval: 86400
+  KKTV:
+    type: http
+    behavior: classical
+    url: https://cdn.jsdelivr.net/gh/lhie1/Rules@master/Clash/Provider/Media/KKTV.yaml
+    path: "./rule_provider/KKTV"
+    interval: 86400
+  Line TV:
+    type: http
+    behavior: classical
+    url: https://cdn.jsdelivr.net/gh/lhie1/Rules@master/Clash/Provider/Media/Line%20TV.yaml
+    path: "./rule_provider/Line_TV"
+    interval: 86400
+  myTV SUPER:
+    type: http
+    behavior: classical
+    url: https://cdn.jsdelivr.net/gh/lhie1/Rules@master/Clash/Provider/Media/myTV%20SUPER.yaml
+    path: "./rule_provider/myTV_SUPER"
+    interval: 86400
+  Pandora:
+    type: http
+    behavior: classical
+    url: https://cdn.jsdelivr.net/gh/lhie1/Rules@master/Clash/Provider/Media/Pandora.yaml
+    path: "./rule_provider/Pandora"
+    interval: 86400
+  PBS:
+    type: http
+    behavior: classical
+    url: https://cdn.jsdelivr.net/gh/lhie1/Rules@master/Clash/Provider/Media/PBS.yaml
+    path: "./rule_provider/PBS"
+    interval: 86400
+  Pornhub:
+    type: http
+    behavior: classical
+    url: https://cdn.jsdelivr.net/gh/lhie1/Rules@master/Clash/Provider/Media/Pornhub.yaml
+    path: "./rule_provider/Pornhub"
+    interval: 86400
+  Soundcloud:
+    type: http
+    behavior: classical
+    url: https://cdn.jsdelivr.net/gh/lhie1/Rules@master/Clash/Provider/Media/Soundcloud.yaml
+    path: "./rule_provider/Soundcloud"
+    interval: 86400
+  ViuTV:
+    type: http
+    behavior: classical
+    url: https://cdn.jsdelivr.net/gh/lhie1/Rules@master/Clash/Provider/Media/ViuTV.yaml
+    path: "./rule_provider/ViuTV"
+    interval: 86400
+  Telegram:
+    type: http
+    behavior: classical
+    url: https://cdn.jsdelivr.net/gh/lhie1/Rules@master/Clash/Provider/Telegram.yaml
+    path: "./rule_provider/Telegram"
+    interval: 86400
+  Steam:
+    type: http
+    behavior: classical
+    url: https://cdn.jsdelivr.net/gh/lhie1/Rules@master/Clash/Provider/Steam.yaml
+    path: "./rule_provider/Steam"
+    interval: 86400
+  Speedtest:
+    type: http
+    behavior: classical
+    url: https://cdn.jsdelivr.net/gh/lhie1/Rules@master/Clash/Provider/Speedtest.yaml
+    path: "./rule_provider/Speedtest"
+    interval: 86400
+  PayPal:
+    type: http
+    behavior: classical
+    url: https://cdn.jsdelivr.net/gh/lhie1/Rules@master/Clash/Provider/PayPal.yaml
+    path: "./rule_provider/PayPal"
+    interval: 86400
+  Microsoft:
+    type: http
+    behavior: classical
+    url: https://cdn.jsdelivr.net/gh/lhie1/Rules@master/Clash/Provider/Microsoft.yaml
+    path: "./rule_provider/Microsoft"
+    interval: 86400
+  PROXY:
+    type: http
+    behavior: classical
+    url: https://cdn.jsdelivr.net/gh/lhie1/Rules@master/Clash/Provider/Proxy.yaml
+    path: "./rule_provider/Proxy"
+    interval: 86400
+  Domestic:
+    type: http
+    behavior: classical
+    url: https://cdn.jsdelivr.net/gh/lhie1/Rules@master/Clash/Provider/Domestic.yaml
+    path: "./rule_provider/Domestic"
+    interval: 86400
+  Apple:
+    type: http
+    behavior: classical
+    url: https://cdn.jsdelivr.net/gh/lhie1/Rules@master/Clash/Provider/Apple.yaml
+    path: "./rule_provider/Apple"
+    interval: 86400
+  Scholar:
+    type: http
+    behavior: classical
+    url: https://cdn.jsdelivr.net/gh/lhie1/Rules@master/Clash/Provider/Scholar.yaml
+    path: "./rule_provider/Scholar"
+    interval: 86400
+  Domestic IPs:
+    type: http
+    behavior: ipcidr
+    url: https://cdn.jsdelivr.net/gh/lhie1/Rules@master/Clash/Provider/Domestic%20IPs.yaml
+    path: "./rule_provider/Domestic_IPs"
+    interval: 86400
+  LAN:
+    type: http
+    behavior: classical
+    url: https://cdn.jsdelivr.net/gh/lhie1/Rules@master/Clash/Provider/LAN.yaml
+    path: "./rule_provider/LAN"
+    interval: 86400
+script:
+  code: |
+    def main(ctx, metadata):
+        ruleset_action = {"Reject": "AdBlock",
+            "Special": "DIRECT",
+            "Netflix": "Netflix",
+            "Spotify": "Spotify",
+            "YouTube": "Youtube",
+            "Disney Plus": "Disney",
+            "Bilibili": "Bilibili",
+            "iQiyi": "AsianTV",
+            "Letv": "AsianTV",
+            "Netease Music": "AsianTV",
+            "Tencent Video": "AsianTV",
+            "Youku": "AsianTV",
+            "WeTV": "AsianTV",
+            "ABC": "GlobalTV",
+            "Abema TV": "GlobalTV",
+            "Amazon": "GlobalTV",
+            "Apple News": "GlobalTV",
+            "Apple TV": "GlobalTV",
+            "Bahamut": "Bahamut",
+            "BBC iPlayer": "GlobalTV",
+            "DAZN": "GlobalTV",
+            "Discovery Plus": "GlobalTV",
+            "encoreTVB": "GlobalTV",
+            "Fox Now": "GlobalTV",
+            "Fox+": "GlobalTV",
+            "HBO": "HBO",
+            "Hulu Japan": "GlobalTV",
+            "Hulu": "GlobalTV",
+            "Japonx": "GlobalTV",
+            "JOOX": "GlobalTV",
+            "KKBOX": "GlobalTV",
+            "KKTV": "GlobalTV",
+            "Line TV": "GlobalTV",
+            "myTV SUPER": "GlobalTV",
+            "Pandora": "GlobalTV",
+            "PBS": "GlobalTV",
+            "Pornhub": "Pornhub",
+            "Soundcloud": "GlobalTV",
+            "ViuTV": "GlobalTV",
+            "Telegram": "Telegram",
+            "Steam": "Steam",
+            "Speedtest": "Speedtest",
+            "PayPal": "PayPal",
+            "Microsoft": "Microsoft",
+            "PROXY": "Proxy",
+            "Apple": "Apple",
+            "Scholar": "Scholar",
+            "Domestic": "Domestic",
+            "Domestic IPs": "Domestic",
+            "LAN": "DIRECT"
+          }
+
+        port = int(metadata["dst_port"])
+
+        if metadata["network"] == "UDP":
+            if port == 443:
+                ctx.log('[Script] matched QUIC traffic use reject')
+                return "REJECT"
+
+        port_list = [21, 22, 23, 53, 80, 123, 143, 194, 443, 465, 587, 853, 993, 995, 998, 2052, 2053, 2082, 2083, 2086, 2095, 2096, 5222, 5228, 5229, 5230, 8080, 8443, 8880, 8888, 8889]
+        if port not in port_list:
+            ctx.log('[Script] not common port use direct')
+            return "DIRECT"
+
+        if metadata["dst_ip"] == "":
+            metadata["dst_ip"] = ctx.resolve_ip(metadata["host"])
+
+        for ruleset in ruleset_action:
+            if ctx.rule_providers[ruleset].match(metadata):
+                return ruleset_action[ruleset]
+
+        if metadata["dst_ip"] == "":
+            return "DIRECT"
+
+        code = ctx.geoip(metadata["dst_ip"])
+        if code == "CN":
+            ctx.log('[Script] Geoip CN')
+            return "Domestic"
+
+        ctx.log('[Script] FINAL')
+        return "Others"

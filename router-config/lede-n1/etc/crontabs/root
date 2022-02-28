@@ -1,0 +1,2 @@
+*     *       *       *       *   echo `date` > /kuaicdn/app/ipes/var/log/ipes/cron.log && sh /kuaicdn/app/ipes/bin/check start >> /kuaicdn/app/ipes/var/log/ipes/cron.log  2>&1
+04 4 * * * sleep 5 && touch /etc/banner && reboot   //每天4点04分路由器自动重启

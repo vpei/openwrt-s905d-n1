@@ -1,0 +1,48 @@
+
+config interface 'loopback'
+	option proto 'static'
+	option ipaddr '127.0.0.1'
+	option netmask '255.0.0.0'
+	option device 'lo'
+
+config globals 'globals'
+	option ula_prefix '10:0:2::/64'
+
+config interface 'lan'
+	option proto 'static'
+	option netmask '255.255.255.0'
+	option ip6assign '64'
+	option ip6ifaceid '::254'
+	option _orig_ifname 'eth0 wlan0'
+	option _orig_bridge 'true'
+	option ipaddr '192.168.2.254'
+	option device 'br-lan'
+
+config interface 'wan'
+	option _orig_ifname 'eth0'
+	option _orig_bridge 'false'
+	option proto 'pppoe'
+	option password '958199'
+	option ipv6 'auto'
+	option username 'hfi45593'
+	option device 'eth0'
+
+config interface 'zerotier'
+	option proto 'dhcp'
+	option device 'ztly5s626i'
+
+config interface 'wan6'
+	option proto 'dhcpv6'
+	option reqaddress 'try'
+	option reqprefix 'auto'
+	option device 'eth0'
+
+config device
+	option name 'br-lan'
+	option type 'bridge'
+	list ports 'bond0'
+	list ports 'bonding_masters'
+	list ports 'dummy0'
+	list ports 'erspan0'
+	list ports 'wlan0'
+
