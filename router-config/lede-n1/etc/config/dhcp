@@ -17,9 +17,9 @@ config dnsmasq
 	option mini_ttl '0'
 	option nonwildcard '1'
 	list notinterface 'ztly5s626i'
-	option nohosts '1'
 	option noresolv '1'
 	list server '127.0.0.1#6053'
+	option nohosts '1'
 
 config dhcp 'lan'
 	option interface 'lan'

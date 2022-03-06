@@ -9,7 +9,7 @@ config system
 	option description 'FX-NET-Description'
 	option notes 'FX-NET-Notes'
 	option timezone 'CST-8'
-	option hostname 'B-NET'
+	option hostname 'D-NET'
 	option zonename 'Asia/Taipei'
 
 config timeserver 'ntp'

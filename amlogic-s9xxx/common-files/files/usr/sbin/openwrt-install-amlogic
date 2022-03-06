@@ -543,7 +543,7 @@ while [ $i -le $max_try ]; do
         echo "Create folder ... "
         cd /mnt/${EMMC_NAME}p2
         btrfs subvolume create etc
-        mkdir -p bin boot dev lib opt mnt overlay proc rom root run sbin sys tmp usr www .reserved .snapshots
+        mkdir -p bin boot dev lib opt mnt overlay proc rom root run sbin sys tmp usr www kuaicdn .reserved .snapshots
         ln -sf lib/ lib64
         ln -sf tmp/ var
         sync

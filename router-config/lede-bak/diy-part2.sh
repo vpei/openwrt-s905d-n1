@@ -42,7 +42,7 @@ svn co https://github.com/xiaorouji/openwrt-passwall/trunk/shadowsocks-rust pack
 svn co https://github.com/xiaorouji/openwrt-passwall/trunk/shadowsocksr-libev package/vpei/shadowsocksr-libev
 
 # Add p7zip
-svn co https://github.com/hubutui/p7zip-lede/trunk package/vpei/p7zip
+svn co https://github.com/hubutui/p7zip-lede/trunk/ package/vpei/p7zip
 
 # Fix runc version error
 # rm -rf ./feeds/packages/utils/runc/Makefile
