@@ -294,14 +294,14 @@ jobs:
       id: tag
       if: steps.build.outputs.status == 'success' && env.UPLOAD_RELEASE == 'true' && !cancelled()
       run: |
-        echo "::set-output name=release_tag::N1_lede_s905d_${{ env.FILE_DATE }}"
+        echo "::set-output name=release_tag::N2_lede_s905d_${{ env.FILE_DATE }}"
+        #touch release.txt
         echo "* 有什么问题，可以加Telegram群组讨论1：[https://t.me/tt2048](https://t.me/tt2048) (安装Telegram后打开网址或者搜索tt2048)" >> release.txt
         echo "本固件网线接外网，自动拨号，提供猕猴桃挖矿流量分享，再提供Wifi局域网。" >> release.txt
         echo "当前使用版本:编译前的最后一次➦[主源码](https://github.com/coolsnowwolf/lede)更新记录，此为**自用精简包**。" >> release.txt
         echo "本版本建议**全新刷入**或者**不保留配置**进行升级。" >> release.txt
         [ ${{ env.UPLOAD_COWTRANSFER }} = true ] && echo "🔗 [Cowtransfer-File](${{ steps.cowtransfer.outputs.url }})" >> release.txt
         [ ${{ env.UPLOAD_WETRANSFER }} = true ] && echo "🔗 [WeTransfer-File](${{ steps.wetransfer.outputs.url }})" >> release.txt
-        touch release.txt
         echo "This is OpenWrt firmware for Amlogic S9xxx STB" >> release.txt
         echo "* Firmware information" >> release.txt
         echo "Default IP: 192.168.2.254" >> release.txt
