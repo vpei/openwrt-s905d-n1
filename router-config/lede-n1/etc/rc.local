@@ -29,4 +29,7 @@ sleep 10
 # /kuaicdn/app/ipes/bin/ipes start
 
 /usr/sbin/balethirq.pl
+/usr/sbin/balethirq.pl
+/usr/sbin/balethirq.pl
+/usr/sbin/balethirq.pl
 exit 0

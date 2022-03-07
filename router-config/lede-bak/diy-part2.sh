@@ -35,6 +35,9 @@ sed -i 's/root:$1$V4UetPzk$CYXluq4wUazHjmCDBCqXF.:0:0:99999:7:::/root:$1$.q1gt4p
 # Add 晶晨宝盒 luci-app-amlogic
 svn co https://github.com/ophub/luci-app-amlogic/trunk/luci-app-amlogic package/vpei/luci-app-amlogic
 
+# Add zerotier luci-app-zerotier
+# svn co https://github.com/harryzwh/luci-app-zerotier/trunk/ package/vpei/luci-app-zerotier
+# sed -i 's#../../luci.mk#$(TOPDIR)/feeds/luci/luci.mk#' package/vpei/luci-app-zerotier/Makefile
 
 # Add shadowsocks and shadowsocksR
 # svn co https://github.com/openwrt/packages/trunk/net/shadowsocks-libev package/vpei/shadowsocks-libev
