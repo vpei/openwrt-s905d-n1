@@ -173,7 +173,7 @@ jobs:
 
     - name: Build OpenWrt firmware
       if: steps.compile.outputs.status == 'success' && !cancelled()
-      id: Build
+      id: build
       run: |
         [ -d openwrt-armvirt ] || mkdir -p openwrt-armvirt
         cp -f openwrt/bin/targets/*/*/*.tar.gz openwrt-armvirt/ && sync
@@ -242,7 +242,7 @@ jobs:
     - name: Upload firmware to WeTransfer
       id: wetransfer
       #if: steps.organize.conclusion == 'success' && env.UPLOAD_WETRANSFER == 'true' && !cancelled()
-      if: steps.Build.outputs.status == 'success' && env.UPLOAD_WETRANSFER == 'true' && !cancelled()
+      if: steps.build.outputs.status == 'success' && env.UPLOAD_WETRANSFER == 'true' && !cancelled()
       run: |
         curl -fsSL git.io/file-transfer | sh
         ./transfer wet -s -p 16 --no-progress ${PACKAGED_OUTPUTPATH} 2>&1 | tee wetransfer.log

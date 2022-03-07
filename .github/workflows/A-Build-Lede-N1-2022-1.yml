@@ -214,7 +214,7 @@ jobs:
 
     - name: Build OpenWrt firmware
       if: steps.compile.outputs.status == 'success' && !cancelled()
-      id: Build
+      id: build
       run: |
         [ -d openwrt-armvirt ] || mkdir -p openwrt-armvirt
         cp -f openwrt/bin/targets/*/*/*.tar.gz openwrt-armvirt/ && sync
@@ -265,7 +265,7 @@ jobs:
     - name: Upload artifact to Actions
       uses: actions/upload-artifact@main
       #if: steps.organize.conclusion == 'success' && !cancelled()
-      if: steps.compile.outputs.status == 'success' && env.UPLOAD_COWTRANSFER == 'true' && !cancelled()
+      if: steps.compile.outputs.status == 'success' && !cancelled()
       with:
         name: openWrt_firmware${{ env.DEVICE_NAME }}${{ env.FILE_DATE }}
         path: ${{ env.PACKAGED_OUTPUTPATH }}
@@ -283,7 +283,7 @@ jobs:
     - name: Upload firmware to WeTransfer
       id: wetransfer
       #if: steps.organize.conclusion == 'success' && env.UPLOAD_WETRANSFER == 'true' && !cancelled()
-      if: steps.Build.outputs.status == 'success' && env.UPLOAD_WETRANSFER == 'true' && !cancelled()
+      if: steps.build.outputs.status == 'success' && env.UPLOAD_WETRANSFER == 'true' && !cancelled()
       run: |
         curl -fsSL git.io/file-transfer | sh
         ./transfer wet -s -p 16 --no-progress ${PACKAGED_OUTPUTPATH} 2>&1 | tee wetransfer.log
@@ -327,7 +327,7 @@ jobs:
     #- name: Upload OpenWrt Firmware to Release
     #  id: release
     #  uses: ncipollo/release-action@v1
-    #  if: steps.Build.outputs.status == 'success' && env.UPLOAD_RELEASE == 'true' && !cancelled()
+    #  if: steps.build.outputs.status == 'success' && env.UPLOAD_RELEASE == 'true' && !cancelled()
     #  with:
     #    #tag: N1_lede_s905d_${{ env.FILE_DATE }}
     #    tag: ${{ steps.tag.outputs.release_tag }}
