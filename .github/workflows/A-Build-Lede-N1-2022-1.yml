@@ -302,7 +302,7 @@ jobs:
         [ ${{ env.UPLOAD_COWTRANSFER }} = true ] && echo "🔗 [Cowtransfer-File](${{ steps.cowtransfer.outputs.url }})" >> release.txt
         [ ${{ env.UPLOAD_WETRANSFER }} = true ] && echo "🔗 [WeTransfer-File](${{ steps.wetransfer.outputs.url }})" >> release.txt
         touch release.txt
-	echo "This is OpenWrt firmware for Amlogic S9xxx STB" >> release.txt
+        echo "This is OpenWrt firmware for Amlogic S9xxx STB" >> release.txt
         echo "* Firmware information" >> release.txt
         echo "Default IP: 192.168.2.254" >> release.txt
         echo "Default username: root" >> release.txt
