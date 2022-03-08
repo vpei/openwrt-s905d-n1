@@ -1,0 +1,13 @@
+
+config server
+	option read_buffer_size '10485760'
+	option cache_size '1000'
+	option root '/'
+	option auth_user 'root'
+	option auth_password 'asdfadsf'
+	option port '8099'
+	option refresh_token '88f70cbc92634102bd775e2952efb4ee'
+	option debug '1'
+	option host '0.0.0.0'
+	option enable '0'
+

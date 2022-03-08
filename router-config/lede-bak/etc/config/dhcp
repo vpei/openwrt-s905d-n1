@@ -17,9 +17,9 @@ config dnsmasq
 	option mini_ttl '0'
 	option nonwildcard '1'
 	list notinterface 'ztly5s626i'
+	option nohosts '1'
 	option noresolv '1'
 	list server '127.0.0.1#6053'
-	option nohosts '1'
 
 config dhcp 'lan'
 	option interface 'lan'
@@ -33,11 +33,11 @@ config dhcp 'lan'
 	option ra_lifetime '1800'
 	option limit '250'
 	option leasetime '8h'
-	list dns '2400:3200::1'
 	option ra 'server'
 	option dhcpv6 'server'
 	option ra_management '1'
 	option ra_default '1'
+	list dns '10:0:11::254'
 
 config dhcp 'wan'
 	option interface 'wan'
@@ -53,125 +53,125 @@ config odhcpd 'odhcpd'
 config host
 	option name 'ZCB-HOME'
 	option dns '1'
-	option ip '192.168.14.2'
+	option ip '192.168.12.2'
 
 config host
 	option name 'VPE-PC'
 	option dns '1'
-	option ip '192.168.14.4'
+	option ip '192.168.12.4'
 
 config host
 	option name 'ZCB'
 	option dns '1'
-	option ip '192.168.14.5'
+	option ip '192.168.12.5'
 
 config host
 	option mac '00:16:EB:6C:C7:8A'
-	option ip '192.168.14.6'
+	option ip '192.168.12.6'
 
 config host
 	option name 'NPIE940AD'
 	option dns '1'
-	option ip '192.168.14.7'
+	option ip '192.168.12.7'
 
 config host
 	option name 'YK-01'
 	option dns '1'
-	option ip '192.168.14.8'
+	option ip '192.168.12.8'
 
 config host
 	option dns '1'
-	option ip '192.168.14.9'
+	option ip '192.168.12.9'
 	option name 'T-SYNC'
 
 config host
 	option mac '20:F4:78:68:0F:FA'
-	option ip '192.168.14.20'
+	option ip '192.168.12.20'
 
 config host
 	option mac 'AC:1F:6B:D0:11:6A'
-	option ip '192.168.14.100'
+	option ip '192.168.12.100'
 
 config host
 	option mac 'AC:1F:6B:D0:11:6B'
-	option ip '192.168.14.101'
+	option ip '192.168.12.101'
 
 config host
 	option dns '1'
-	option ip '192.168.14.180'
+	option ip '192.168.12.180'
 	option name 'P-NET'
 
 config host
 	option mac 'B0:D5:9D:62:DE:1A'
-	option ip '192.168.14.181'
+	option ip '192.168.12.181'
 
 config host
 	option mac 'B0:D5:9D:62:DE:2A'
-	option ip '192.168.14.182'
+	option ip '192.168.12.182'
 
 config host
 	option mac 'B0:D5:9D:62:DE:3A'
-	option ip '192.168.14.183'
+	option ip '192.168.12.183'
 
 config host
 	option mac 'C4:2F:AD:10:42:13'
-	option ip '192.168.14.184'
+	option ip '192.168.12.184'
 
 config host
 	option mac '02:42:BF:CA:9A:0B'
-	option ip '192.168.14.186'
+	option ip '192.168.12.186'
 
 config host
 	option mac 'DC:A6:32:F2:D0:0C'
-	option ip '192.168.14.188'
+	option ip '192.168.12.188'
 
 config host
 	option mac 'C0:E7:3E:C4:01:C0'
-	option ip '192.168.14.189'
+	option ip '192.168.12.189'
 
 config host
 	option mac 'FC:7C:02:8A:7F:47'
-	option ip '192.168.14.190'
+	option ip '192.168.12.190'
 
 config host
 	option mac 'C0:E7:3E:B6:F9:F3'
-	option ip '192.168.14.191'
+	option ip '192.168.12.191'
 
 config host
-	option ip '192.168.14.192'
+	option ip '192.168.12.192'
 	option mac 'B0:D5:9D:D2:B6:30'
 
 config host
 	option mac 'B0:D5:9D:D3:93:E6'
-	option ip '192.168.14.193'
+	option ip '192.168.12.193'
 
 config host
 	option mac 'C0:22:6D:5F:5C:74'
-	option ip '192.168.14.194'
+	option ip '192.168.12.194'
 
 config host
 	option mac 'C0:E7:3E:EF:14:B5'
-	option ip '192.168.14.195'
+	option ip '192.168.12.195'
 
 config host
 	option mac 'C0:E7:3E:54:F2:A8'
-	option ip '192.168.14.196'
+	option ip '192.168.12.196'
 
 config host
 	option mac '00:22:6D:5F:5C:74'
-	option ip '192.168.14.197'
+	option ip '192.168.12.197'
 
 config host
 	option mac '00:22:6D:63:E5:67'
-	option ip '192.168.14.198'
+	option ip '192.168.12.198'
 
 config host
 	option mac 'FA:27:55:2B:24:A7'
-	option ip '192.168.14.199'
+	option ip '192.168.2.199'
 
 config host
 	option mac 'FC:7C:02:91:EF:CC'
-	option ip '192.168.14.200'
+	option ip '192.168.12.200'
 
 config dhcp 'zerotier'
 	option start '100'
@@ -188,9 +188,5 @@ config srvhost
 
 config domain
 	option name 'e.vmess.com'
-	option ip '192.168.14.5'
-
-config domain
-	option name 'd.vmess.com'
-	option ip '104.233.231.218'
+	option ip '192.168.12.5'
 

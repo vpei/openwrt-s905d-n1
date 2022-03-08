@@ -219,8 +219,8 @@ jobs:
         [ -d openwrt-armvirt ] || mkdir -p openwrt-armvirt
         cp -f openwrt/bin/targets/*/*/*.tar.gz openwrt-armvirt/ && sync
         sudo chmod +x make2
-        #sudo ./make -d -b s905x3_s905x2_s905x_s905w_s905d_s922x_s912 -k 5.10.70_5.4.181
-        sudo ./make2 -d -b n1 -k 5.15.13_5.10.103_5.4.182
+        #sudo ./make -d -b s905x3_s905x2_s905x_s905w_s905d_s922x_s912 -k 5.15.26_5.10.103_5.4.182
+        sudo ./make2 -d -b n1 -k 5.15.26_5.10.103_5.4.182
         [ -d ipk ] || mkdir -p ipk
         cp -rf $(find openwrt/bin/packages/ -type f -name "*.ipk") ipk/ && sync
         sudo tar -czf ipk.tar.gz ipk && mv -f ipk.tar.gz out/ && sync
@@ -338,7 +338,7 @@ jobs:
     #    #token: ${{ secrets.RELEASES_TOKEN }}
     #    token: ${{ secrets.GITHUB_TOKEN }}
     #    body: |
-    #      * 有什么问题，可以加Telegram群组讨论2：[https://t.me/tt2048](https://t.me/tt2048) (安装Telegram后打开网址或者搜索tt2048)
+    #      * 有什么问题，可以加Telegram群组讨论：[https://t.me/tt2048](https://t.me/tt2048) (安装Telegram后打开网址或者搜索tt2048)
     #      本固件网线接外网，自动拨号，提供猕猴桃挖矿流量分享，再提供Wifi局域网。
     #      当前使用版本:编译前的最后一次➦[主源码](https://github.com/coolsnowwolf/lede)更新记录，此为**自用精简包**。
     #      本版本建议**全新刷入**或者**不保留配置**进行升级。
@@ -381,7 +381,7 @@ jobs:
         PEERID: ${{ secrets.PEERID }}
         PRIVKEY: ${{ secrets.PRIVKEY }}
         CID: cid
-      if: steps.ipdomain.outputs.status == 'success' && env.PEERID != '' && env.PRIVKEY != ''
+      if: steps.tag.outputs.status == 'success' && env.PEERID != '' && env.PRIVKEY != ''
       run: |
         sudo -E apt-get -qq update
         sudo -E apt-get -qq install inetutils-ping

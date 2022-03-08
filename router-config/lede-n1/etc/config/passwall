@@ -1,0 +1,300 @@
+
+config nodes 'e37a9b2a70594d608586da24e34e930e'
+	option type 'SS'
+	option timeout '60'
+	option add_from 'vpn.vmess'
+	option password 'YyCBeDdYX4cadHpCkkmdJLq8'
+	option port '43893'
+	option address '66.115.177.141'
+	option remarks '🇺🇸 美国-66.115.177.141'
+	option method 'aes-256-gcm'
+	option add_mode '2'
+
+config nodes '5c840c47599b422190c05c3218f7f140'
+	option type 'SS'
+	option timeout '60'
+	option add_from 'vpn.vmess'
+	option password 'FoOiGlkAA9yPEGP'
+	option port '7307'
+	option address '118.107.244.112'
+	option remarks '🇭🇰 香港-118.107.244.112'
+	option method 'aes-256-gcm'
+	option add_mode '2'
+
+config nodes '10e2a8f853174ae09d3d24f403e906c4'
+	option tls '1'
+	option protocol 'vmess'
+	option add_from 'vpn.vmess'
+	option port '443'
+	option ws_path '/liuwei'
+	option remarks 'uusss1111.liuwei01.tk'
+	option add_mode '2'
+	option ws_host 'uusss1111.liuwei01.tk'
+	option uuid '0fab5928-9d70-4666-b351-5debff8a15de'
+	option timeout '60'
+	option tls_serverName 'uusss1111.liuwei01.tk'
+	option tls_allowInsecure '1'
+	option alter_id '0'
+	option type 'V2ray'
+	option security 'auto'
+	option address 'uusss1111.liuwei01.tk'
+	option transport 'ws'
+
+config nodes '74b75bea8ee64fb0ba1a4f4317b1167b'
+	option type 'SS'
+	option timeout '60'
+	option add_from 'vpn.vmess'
+	option password 'FoOiGlkAA9yPEGP'
+	option port '7307'
+	option address '198.57.27.218'
+	option remarks '🇨🇦 加拿大-198.57.27.218'
+	option method 'aes-256-gcm'
+	option add_mode '2'
+
+config nodes 'aacc6edd04094774abbb7403d7a98094'
+	option type 'SS'
+	option timeout '60'
+	option add_from 'vpn.vmess'
+	option password 'faBAoD54k87UJG7'
+	option port '2375'
+	option address '172.99.190.186'
+	option remarks '🇺🇸 洛杉矶-v2cross.com'
+	option method 'aes-256-gcm'
+	option add_mode '2'
+
+config nodes '775f051c827a4db2a353de181d7d10ce'
+	option tls '1'
+	option protocol 'vmess'
+	option add_from 'vpn.vmess'
+	option port '13723'
+	option ws_path 'ray'
+	option remarks '🇺🇸 美国-us1nhg-node.aiqiche123.com'
+	option add_mode '2'
+	option uuid 'a90597c1-bab3-4217-ad6f-0838675c8634'
+	option timeout '60'
+	option tls_allowInsecure '1'
+	option alter_id '10'
+	option type 'V2ray'
+	option security 'auto'
+	option address 'us1nhg-node.aiqiche123.com'
+	option transport 'ws'
+
+config nodes 'c9230496672a498fa4b586c3e933717f'
+	option type 'SS'
+	option timeout '60'
+	option add_from 'vpn.vmess'
+	option password 'PCnnH6SQSnfoS27'
+	option port '8091'
+	option address '134.195.198.95'
+	option remarks '🇨🇦 加拿大-134.195.198.95'
+	option method 'aes-256-gcm'
+	option add_mode '2'
+
+config nodes 'c96c3f91289b425b9ce3a7dddac806af'
+	option type 'SS'
+	option timeout '60'
+	option add_from 'vpn.vmess'
+	option password 'faBAoD54k87UJG7'
+	option port '2375'
+	option address '46.29.218.6'
+	option remarks '🇳🇴 挪威-46.29.218.6'
+	option method 'aes-256-gcm'
+	option add_mode '2'
+
+config nodes '40f7166da1954968bada7618f5418332'
+	option type 'SS'
+	option timeout '60'
+	option add_from 'vpn.vmess'
+	option password 'PCnnH6SQSnfoS27'
+	option port '8090'
+	option address '172.99.190.230'
+	option remarks '🇺🇸 洛杉矶-172.99.190.230'
+	option method 'aes-256-gcm'
+	option add_mode '2'
+
+config nodes '5f39cb17b7dd4cf6960703562c96e5a6'
+	option type 'SS'
+	option timeout '60'
+	option add_from 'vpn.vmess'
+	option password 'faBAoD54k87UJG7'
+	option port '2376'
+	option address '167.88.63.89'
+	option remarks '🇸🇪 瑞典-167.88.63.89'
+	option method 'aes-256-gcm'
+	option add_mode '2'
+
+config nodes '59d9a4778c124759ac5ea904c7d1326c'
+	option type 'SS'
+	option timeout '60'
+	option add_from 'vpn.vmess'
+	option password 'LJcChRsGQRhywrtXUU55TLTu'
+	option port '47861'
+	option address '66.115.177.156'
+	option remarks '🇺🇸 美国-66.115.177.156'
+	option method 'aes-256-gcm'
+	option add_mode '2'
+
+config global
+	option up_china_dns 'default'
+	option localhost_tcp_proxy_mode 'default'
+	option localhost_udp_proxy_mode 'default'
+	option socks_enabled '0'
+	option tcp_proxy_mode 'gfwlist'
+	option udp_proxy_mode 'gfwlist'
+	option close_log_tcp '1'
+	option close_log_udp '1'
+	option loglevel 'error'
+	option trojan_loglevel '3'
+	option enabled '1'
+	option dns_mode 'pdnsd'
+	option dns_forward '8.8.8.8'
+	option dns_cache '1'
+	option tcp_node 'e37a9b2a70594d608586da24e34e930e'
+	option udp_node 'e37a9b2a70594d608586da24e34e930e'
+
+config global_haproxy
+	option balancing_enable '0'
+
+config global_delay
+	option auto_on '0'
+	option start_daemon '1'
+	option start_delay '2'
+
+config global_forwarding
+	option process '0'
+	option tcp_no_redir_ports 'disable'
+	option udp_no_redir_ports '80,443'
+	option tcp_redir_ports '22,25,53,143,465,587,993,995,80,443'
+	option udp_redir_ports '1:65535'
+	option accept_icmp '0'
+	option proxy_ipv6 '0'
+	option tcp_proxy_way 'redirect'
+
+config global_other
+	option status 'big_icon show_check_port show_ip111'
+	option nodes_ping 'auto_ping tcping info'
+	option ipv6_tproxy '1'
+
+config global_rules
+	option chnlist_update '1'
+	option chnroute_update '1'
+	option chnroute6_update '1'
+	option gfwlist_update '1'
+	option chnroute6_url 'https://ispip.clang.cn/all_cn_ipv6.txt'
+	list chnlist_url 'https://cdn.jsdelivr.net/gh/felixonmars/dnsmasq-china-list/accelerated-domains.china.conf'
+	list chnlist_url 'https://cdn.jsdelivr.net/gh/felixonmars/dnsmasq-china-list/apple.china.conf'
+	list chnlist_url 'https://cdn.jsdelivr.net/gh/felixonmars/dnsmasq-china-list/google.china.conf'
+	option xray_location_asset '/usr/share/xray/'
+	option geosite_update '1'
+	option geoip_update '1'
+	list gfwlist_url 'https://cdn.jsdelivr.net/gh/YW5vbnltb3Vz/domain-list-community@release/gfwlist.txt'
+	list gfwlist_url 'https://cdn.jsdelivr.net/gh/Loyalsoldier/v2ray-rules-dat@release/gfw.txt'
+	list gfwlist_url 'https://cdn.jsdelivr.net/gh/Loukky/gfwlist-by-loukky/gfwlist.txt'
+	list gfwlist_url 'https://cdn.jsdelivr.net/gh/gfwlist/gfwlist/gfwlist.txt'
+	list chnroute_url 'https://ispip.clang.cn/all_cn.txt'
+	list chnroute_url 'https://ispip.clang.cn/all_cn_cidr.txt'
+	list chnroute_url 'https://cdn.jsdelivr.net/gh/soffchen/GeoIP2-CN@release/CN-ip-cidr.txt'
+	list chnroute_url 'https://cdn.jsdelivr.net/gh/Hackl0us/GeoIP2-CN@release/CN-ip-cidr.txt'
+	option auto_update '1'
+	option week_update '7'
+	option time_update '6'
+	option v2ray_location_asset '/usr/share/xray/'
+
+config global_app
+	option v2ray_file '/usr/bin/v2ray'
+	option xray_file '/usr/bin/xray'
+	option trojan_go_file '/usr/bin/trojan-go'
+	option kcptun_client_file '/usr/bin/kcptun-client'
+	option brook_file '/usr/bin/brook'
+	option hysteria_file '/usr/bin/hysteria'
+
+config global_subscribe
+	option subscribe_proxy '0'
+	option allowInsecure '1'
+	option filter_keyword_mode '1'
+	list filter_discard_list '过期时间'
+	list filter_discard_list '剩余流量'
+	list filter_discard_list 'QQ群'
+	list filter_discard_list '官网'
+	option auto_update_subscribe '1'
+	option week_update_subscribe '7'
+	option time_update_subscribe '5'
+	option ss_aead_type 'shadowsocks-libev'
+	option trojan_type 'trojan-plus'
+
+config auto_switch
+	option enable '1'
+	option restore_switch '1'
+	option connect_timeout '3'
+	option retry_num '3'
+	option shunt_logic '0'
+	option testing_time '30'
+	list tcp_node '5c840c47599b422190c05c3218f7f140'
+	list tcp_node '10e2a8f853174ae09d3d24f403e906c4'
+	list tcp_node '74b75bea8ee64fb0ba1a4f4317b1167b'
+	list tcp_node 'aacc6edd04094774abbb7403d7a98094'
+	list tcp_node '775f051c827a4db2a353de181d7d10ce'
+	list tcp_node 'c9230496672a498fa4b586c3e933717f'
+	list tcp_node 'c96c3f91289b425b9ce3a7dddac806af'
+	list tcp_node '40f7166da1954968bada7618f5418332'
+	list tcp_node '5f39cb17b7dd4cf6960703562c96e5a6'
+	list tcp_node '59d9a4778c124759ac5ea904c7d1326c'
+
+config shunt_rules 'ads'
+	option remarks '广告'
+	option domain_list 'geosite:category-ads'
+
+config shunt_rules 'China'
+	option remarks 'China'
+	option domain_list 'geosite:cn'
+	option ip_list 'geoip:cn'
+
+config shunt_rules 'Telegram'
+	option remarks 'Telegram'
+	option ip_list '149.154.160.0/20
+91.108.4.0/22
+91.108.56.0/24
+109.239.140.0/24
+67.198.55.0/24'
+
+config shunt_rules 'youtube'
+	option remarks 'youtube'
+	option domain_list 'youtube
+youtube.com
+youtu.be
+googlevideo.com
+ytimg.com
+gvt2.com'
+
+config shunt_rules 'netflix'
+	option remarks '奈飞'
+	option domain_list 'fast.com
+netflix
+netflix.com
+netflix.net
+nflxso.net
+nflxext.com
+nflximg.com
+nflximg.net
+nflxvideo.net
+netflixdnstest0.com
+netflixdnstest1.com
+netflixdnstest2.com
+netflixdnstest3.com
+netflixdnstest4.com
+netflixdnstest5.com
+netflixdnstest6.com
+netflixdnstest7.com
+netflixdnstest8.com
+netflixdnstest9.com'
+
+config shunt_rules 'TVB'
+	option remarks 'TVB'
+	option domain_list 'tvb.com
+mytvsuper.com'
+
+config subscribe_list
+	option enabled '1'
+	option remark 'vpn.vmess'
+	option url 'https://gateway.ipfs.io/ipns/vpn.vmess.com'
+

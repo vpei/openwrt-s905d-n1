@@ -1,4 +1,3 @@
 args:
-  - '/mnt/sda1/'
-  - '/mnt/sda2/'
-  - '/mnt/sda3/'
+  - '/mnt/sdb1/'
+  - '/mnt/sdb1/tdata/'
