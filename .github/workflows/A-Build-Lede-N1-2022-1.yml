@@ -294,7 +294,7 @@ jobs:
       id: tag
       if: steps.build.outputs.status == 'success' && env.UPLOAD_RELEASE == 'true' && !cancelled()
       run: |
-        echo "::set-output name=release_tag::N1_lede_s905d_${{ env.FILE_DATE }}"
+        echo "::set-output name=release_tag::lede_s905d_${{ env.FILE_DATE }}"
         #touch release.txt
         echo "* 有什么问题，可以加Telegram群组讨论：[https://t.me/tt2048](https://t.me/tt2048) (安装Telegram后打开网址或者搜索tt2048)" >> release.txt
         echo "斐讯N1-OPENWRT路由器固件：本固件网线接外网，自动拨号，提供猕猴桃挖矿流量分享，再提供Wifi局域网。" >> release.txt
@@ -421,7 +421,6 @@ jobs:
         # echo $dataline1
 
         ipfs id
-	chmod -R 7777 out
         dataline1=$(ipfs add -r ./out)
         echo $dataline1
 
@@ -478,13 +477,13 @@ jobs:
         # ps -A
         echo 离线发布ipfs name publish /ipfs/$CID --allow-offline=true --lifetime=24h
         # ipfs name publish /ipfs/$CID --allow-offline=true --lifetime=24h
-        # ipfs name publish /ipfs/$CID --lifetime=24h
+        ipfs name publish /ipfs/$CID --lifetime=24h
         
         sleep 3
         # echo 后台运行ipfs软件
         # file1=./ipfs/tmp/003.out
         # nohup ipfs daemon >$file1 &
-        # ipfs name publish /ipfs/$CID --lifetime=24h
+        ipfs name publish /ipfs/$CID --lifetime=24h
 
         sleep 30
         echo ipfs软件已运行
