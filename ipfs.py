@@ -1,13 +1,7 @@
 #!/usr/bin/env python3
 
-import requests
 import sys
-import json
-import base64
 import datetime
-import os
-import re
-import socket
 import hashlib
 from cls.StrText import StrText
 from cls.LocalFile import LocalFile
@@ -53,10 +47,8 @@ if(ipfs == 'ipfs'):
                     #resurl = j.replace(':hash', cid + '/')
                     print('\n' + (datetime.datetime.now()).strftime("%Y-%m-%d %H:%M:%S") + '\n' + str(ii) + '-' + resurl)
                     expire = NetFile.url_to_str(resurl + '?file=name.html', 25, 60)
-                    expire = NetFile.url_to_str(resurl + 'ipfs', 25, 60)
-                    expire = NetFile.url_to_str(resurl + 'node.txt', 25, 60)
-                    expire = NetFile.url_to_str(resurl + 'expire.txt', 25, 60)
-                    readme = LocalFile.read_LocalFile("./out/expire.txt")
+                    expire = NetFile.url_to_str(resurl + 'ipfs.txt', 25, 60)
+                    readme = LocalFile.read_LocalFile("./ipfs/ipfs.txt")
                     #print('ipfs:\nlocal-readme\n' + readme + '\nnet-readme\n' + expire)
                     if (hashlib.md5(readme.encode("utf-8")).hexdigest() == hashlib.md5(expire.encode("utf-8")).hexdigest()):
                         print('hashlib.md5-True-' + resurl)
@@ -82,10 +74,8 @@ else:
                 #resurl = j.replace('/ipfs/:hash', '/ipns/k51qzi5uqu5dgc33fk7pd3093uw5ouejcyhwicv6gtfersoetui51qxq62zn5a/')
                 print('\n' + (datetime.datetime.now()).strftime("%Y-%m-%d %H:%M:%S") + '\n' + str(ii) + '-' + resurl)
                 expire = NetFile.url_to_str(resurl + '?file=name.html', 50, 120)
-                expire = NetFile.url_to_str(resurl + 'ipfs', 50, 120)
-                expire = NetFile.url_to_str(resurl + 'node.txt', 50, 120)
-                expire = NetFile.url_to_str(resurl + 'expire.txt', 50, 120)
-                readme = LocalFile.read_LocalFile("./out/expire.txt")
+                expire = NetFile.url_to_str(resurl + 'ipfs.txt', 50, 120)
+                readme = LocalFile.read_LocalFile("./ipfs/ipfs.txt")
                 #print('ipns:\nlocal-readme\n' + readme + '\nnet-readme\n' + expire)
                 if (hashlib.md5(readme.encode("utf-8")).hexdigest() == hashlib.md5(expire.encode("utf-8")).hexdigest()):
                     print('hashlib.md5-True-' + resurl)
