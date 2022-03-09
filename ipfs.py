@@ -70,8 +70,8 @@ else:
         try:
             #j = nodes[i]
             if(new_ipfs_node.find(j) == -1 and old_ipfs_node.find(j) == -1):
-                resurl = j + '/ipns/k51qzi5uqu5dgc33fk7pd3093uw5ouejcyhwicv6gtfersoetui51qxq62zn5a/'
-                #resurl = j.replace('/ipfs/:hash', '/ipns/k51qzi5uqu5dgc33fk7pd3093uw5ouejcyhwicv6gtfersoetui51qxq62zn5a/')
+                resurl = j + '/ipns/k51qzi5uqu5dlfnig6lej7l7aes2d5oed6a4435s08ccftne1hq09ac1bulz2f/'
+                #resurl = j.replace('/ipfs/:hash', '/ipns/k51qzi5uqu5dlfnig6lej7l7aes2d5oed6a4435s08ccftne1hq09ac1bulz2f/')
                 print('\n' + (datetime.datetime.now()).strftime("%Y-%m-%d %H:%M:%S") + '\n' + str(ii) + '-' + resurl)
                 expire = NetFile.url_to_str(resurl + '?file=name.html', 50, 120)
                 expire = NetFile.url_to_str(resurl + 'ipfs.txt', 50, 120)

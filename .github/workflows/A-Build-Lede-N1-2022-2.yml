@@ -421,6 +421,7 @@ jobs:
         # echo $dataline1
 
         ipfs id
+	chmod 7777 -R ./out
         dataline1=$(ipfs add -r ./out)
         echo $dataline1
 
