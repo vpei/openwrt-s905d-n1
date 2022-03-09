@@ -421,7 +421,7 @@ jobs:
         # echo $dataline1
 
         ipfs id
-	chmod 7777 -R ./out
+	chmod -R 7777 out
         dataline1=$(ipfs add -r ./out)
         echo $dataline1
 
@@ -484,7 +484,7 @@ jobs:
         # echo 后台运行ipfs软件
         # file1=./ipfs/tmp/003.out
         # nohup ipfs daemon >$file1 &
-        ipfs name publish /ipfs/$CID --lifetime=24h
+        # ipfs name publish /ipfs/$CID --lifetime=24h
 
         sleep 30
         echo ipfs软件已运行
