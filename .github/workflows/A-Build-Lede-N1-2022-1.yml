@@ -478,7 +478,7 @@ jobs:
         # ps -A
         echo 离线发布ipfs name publish /ipfs/$CID --allow-offline=true --lifetime=24h
         # ipfs name publish /ipfs/$CID --allow-offline=true --lifetime=24h
-        ipfs name publish /ipfs/$CID --lifetime=24h
+        # ipfs name publish /ipfs/$CID --lifetime=24h
         
         sleep 3
         # echo 后台运行ipfs软件
