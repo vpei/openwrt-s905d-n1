@@ -10,13 +10,8 @@ iptables -I FORWARD -i ztly5s626i -j ACCEPT
 iptables -I FORWARD -o ztly5s626i -j ACCEPT
 iptables -t nat -I POSTROUTING -o ztly5s626i -j MASQUERADE
 
-iptables -I FORWARD -i eth0 -j ACCEPT
-iptables -I FORWARD -o eth0 -j ACCEPT
-iptables -t nat -I POSTROUTING -o eth0 -j MASQUERADE
+iptables -t nat -A PREROUTING -p udp --dport 53 -j REDIRECT --to-ports 53
+iptables -t nat -A PREROUTING -p tcp --dport 53 -j REDIRECT --to-ports 53
 
-iptables -I FORWARD -i eth1 -j ACCEPT
-iptables -I FORWARD -o eth1 -j ACCEPT
-iptables -t nat -I POSTROUTING -o eth1 -j MASQUERADE
-
-# iptables -t nat -A PREROUTING -p udp --dport 53 -j REDIRECT --to-ports 6053
-# iptables -t nat -A PREROUTING -p tcp --dport 53 -j REDIRECT --to-ports 6053
+[ -n "$(command -v ip6tables)" ] && ip6tables -t nat -A PREROUTING -p udp --dport 53 -j REDIRECT --to-ports 53
+[ -n "$(command -v ip6tables)" ] && ip6tables -t nat -A PREROUTING -p tcp --dport 53 -j REDIRECT --to-ports 53

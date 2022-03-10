@@ -5,7 +5,7 @@
 # Source code repository: https://github.com/openwrt/openwrt / Branch: 21.02
 #========================================================================================================================
 
-name: A-Build-OpenWrt-N1-2021-1
+name: A-Build-OpenWrt-N1-2022-1
 
 on:
   repository_dispatch:
@@ -15,8 +15,8 @@ on:
 
 env:
   REPO_URL: https://github.com/openwrt/openwrt
-  #REPO_BRANCH: master
-  REPO_BRANCH: openwrt-21.02
+  REPO_BRANCH: master
+  #REPO_BRANCH: openwrt-21.02
 
   ROOT_DIR: router-config/openwrt-n1
   FEEDS_CONF: router-config/openwrt-n1/feeds.conf.default
@@ -27,7 +27,7 @@ env:
   UPLOAD_ARMVIRT: true
   UPLOAD_FIRMWARE: true
   UPLOAD_RELEASE: true
-  UPLOAD_COWTRANSFER: true
+  UPLOAD_COWTRANSFER: false
   UPLOAD_WETRANSFER: true
   DELETE_RELEASE: true
   DELETE_ARTIFACTS: true
@@ -131,15 +131,46 @@ jobs:
         #echo "BIN_FILE_PATH=/workdir/openwrt/bin/targets" >> $GITHUB_ENV
         echo "::set-output name=status::success"
 
-    - name: Upload firmware to release
-      uses: softprops/action-gh-release@v1
-      if: steps.tag-build.outputs.status == 'success' && !cancelled()
-      env:
-        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-      with:
-        tag_name: lede_s9xxx_n1_${{ steps.tag-build.outputs.release_tag }}
-        body_path: release.txt
-        files: ${{ env.FIRMWARE }}/*
+    #- name: Upload artifact to Actions
+    #  uses: kittaakos/upload-artifact-as-is@master
+    #  if: steps.compile.outputs.status == 'success' && env.UPLOAD_FIRMWARE == 'true' && !cancelled()
+    #  with:
+    #    path: ${ GITHUB_WORKSPACE }/openwrt/bin/*
+    #    #path: ${{ env.BIN_FILE_PATH }}/
+
+    #- name: Upload OpenWrt Firmware to cowtransfer
+    #  if: steps.compile.outputs.status == 'success' && env.UPLOAD_COWTRANSFER == 'true' && !cancelled()
+    #  run: |
+    #    curl -fsSL git.io/file-transfer | sh
+    #    ./transfer cow --block 2621440 -s -p 64 --no-progress ${ GITHUB_WORKSPACE }/openwrt/bin/* 2>&1 | tee cowtransfer.log
+    #    echo "COW_URL=$(cat cowtransfer.log | grep https | cut -f3 -d" ")" >> $GITHUB_ENV
+
+    #- name: Upload OpenWrt Firmware to WeTransfer
+    #  if: steps.compile.outputs.status == 'success' && env.UPLOAD_WETRANSFER == 'true' && !cancelled()
+    #  run: |
+    #    curl -fsSL git.io/file-transfer | sh
+    #    ./transfer wet -s -p 16 --no-progress ${{ env.BIN_FILE_PATH }}/{openwrt_s9xxx_*,openwrt_*} 2>&1 | tee wetransfer.log
+    #    echo "WET_URL=$(cat wetransfer.log | grep https | cut -f3 -d" ")" >> $GITHUB_ENV
+
+    #- name: Generate release tag
+    #  id: tag-build
+    #  if: steps.compile.outputs.status == 'success' && env.UPLOAD_COWTRANSFER == 'true' && env.UPLOAD_WETRANSFER == 'true' && !cancelled()
+    #  run: |
+    #    echo "::set-output name=release_tag::$(date +"%Y.%m.%d-%H%M")"
+    #    touch release.txt
+    #    [ $UPLOAD_COWTRANSFER = true ] && echo "🔗 [Cowtransfer-openwrt](${{ steps.cowtransfer.outputs.url }})" >> release.txt
+    #    [ $UPLOAD_WETRANSFER = true ] && echo "🔗 [WeTransfer-openwrt](${{ steps.wetransfer.outputs.url }})" >> release.txt
+    #    echo "::set-output name=status::success"
+
+    #- name: Upload firmware to release
+    #  uses: softprops/action-gh-release@v1
+    #  if: steps.tag-build.outputs.status == 'success' && !cancelled()
+    #  env:
+    #    GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+    #  with:
+    #    tag_name: N1_lede_s9xxx_${{ env.FILE_DATE }}
+    #    body_path: release.txt
+    #    files: ${{ env.FIRMWARE }}/*
 
     - name: Telegram notification
       uses: appleboy/telegram-action@master
@@ -191,7 +222,7 @@ jobs:
         cp -f openwrt/bin/targets/*/*/*.tar.gz openwrt-armvirt/ && sync
         sudo chmod +x make
         #sudo ./make -d -b s905x3_s905x2_s905x_s905w_s905d_s922x_s912 -k 5.10.70_5.4.150
-        sudo ./make -d -b n1 -k 5.4.173
+        sudo ./make2 -d -b n1 -k 5.4.173
         [ -d ipk ] || mkdir -p ipk
         cp -rf $(find openwrt/bin/packages/ -type f -name "*.ipk") ipk/ && sync
         sudo tar -czf ipk.tar.gz ipk && mv -f ipk.tar.gz out/ && sync
@@ -210,7 +241,7 @@ jobs:
         ##echo "https://github.com/${GITHUB_REPOSITORY}/releases/download/${DOWNLOAD_ARMVIRT}"
         ##https://github.com/vpei/amlogic-s9xxx-openwrt/releases/download/OpenWrt_s9xxx_lede_2021.10.24.0333/openwrt-armvirt-64-default-rootfs.tar.gz
         ##sudo ./make -d -b s905x3_s905x2_s905x_s905w_s905d_s922x_s912 -k 5.10.70_5.4.150
-        #sudo ./make -d -b n1 -k 5.4.163
+        #sudo ./make -d -b n1 -k 5.4.181
         #curl -s "https://api.github.com/repos/${GITHUB_REPOSITORY}/releases" | grep -o "openwrt_s9xxx_lede.*/ipk.tar.gz" | head -n 1 > DOWNLOAD_IPK
         #[ -s DOWNLOAD_IPK ] && wget -q -P out https://github.com/${GITHUB_REPOSITORY}/releases/download/$(cat DOWNLOAD_IPK)
         #echo "PACKAGED_OUTPUTPATH=${PWD}/out" >> $GITHUB_ENV
@@ -236,7 +267,7 @@ jobs:
     - name: Upload artifact to Actions
       uses: actions/upload-artifact@main
       #if: steps.organize.conclusion == 'success' && !cancelled()
-      if: steps.compile.outputs.status == 'success' && env.UPLOAD_COWTRANSFER == 'true' && !cancelled()
+      if: steps.compile.outputs.status == 'success' && !cancelled()
       with:
         name: openWrt_firmware${{ env.DEVICE_NAME }}${{ env.FILE_DATE }}
         path: ${{ env.PACKAGED_OUTPUTPATH }}
@@ -246,7 +277,7 @@ jobs:
       if: steps.organize.conclusion == 'success' && env.UPLOAD_COWTRANSFER == 'true' && !cancelled()
       run: |
         curl -fsSL git.io/file-transfer | sh
-        ./transfer cow --block 2621440 -s -p 64 --no-progress ${{ env.PACKAGED_OUTPUTPATH }}/{openwrt_s905d_*,openwrt_n1_*,openwrt_n1_*} 2>&1 | tee cowtransfer.log
+        ./transfer cow --block 2621440 -s -p 64 --no-progress ${PACKAGED_OUTPUTPATH} 2>&1 | tee cowtransfer.log
         echo "COW_URL=$(cat cowtransfer.log | grep https | cut -f3 -d" ")" >> $GITHUB_ENV
         echo "::warning file=cowtransfer.com::$(cat cowtransfer.log | grep https)"
         echo "::set-output name=url::$(cat cowtransfer.log | grep https | cut -f3 -d" ")"
@@ -254,10 +285,10 @@ jobs:
     - name: Upload firmware to WeTransfer
       id: wetransfer
       #if: steps.organize.conclusion == 'success' && env.UPLOAD_WETRANSFER == 'true' && !cancelled()
-      if: steps.Build.outputs.status == 'success' && env.UPLOAD_WETRANSFER == 'true' && !cancelled()
+      if: steps.build.outputs.status == 'success' && env.UPLOAD_WETRANSFER == 'true' && !cancelled()
       run: |
         curl -fsSL git.io/file-transfer | sh
-        ./transfer wet -s -p 16 --no-progress ${{ env.PACKAGED_OUTPUTPATH }}/{openwrt_s905d_*,openwrt_n1_*,openwrt_n1_*} 2>&1 | tee wetransfer.log
+        ./transfer wet -s -p 16 --no-progress ${PACKAGED_OUTPUTPATH} 2>&1 | tee wetransfer.log
         echo "WET_URL=$(cat wetransfer.log | grep https | cut -f3 -d" ")" >> $GITHUB_ENV
         echo "::warning file=wetransfer.com::$(cat wetransfer.log | grep https)"
         echo "::set-output name=url::$(cat wetransfer.log | grep https | cut -f3 -d" ")"
@@ -266,16 +297,14 @@ jobs:
       id: tag
       if: steps.build.outputs.status == 'success' && env.UPLOAD_RELEASE == 'true' && !cancelled()
       run: |
-        echo "::set-output name=release_tag::lede_s905d_n1_${{ env.PACKAGED_OUTPUTDATE }}"
-        touch release.txt
-        [ ${{ env.RECENT_LASTEST }} = true ] && echo "🔗 [Cowtransfer-2](${{ steps.cowtransfer.outputs.url }})" >> release.txt
-        [ ${{ env.RECENT_LASTEST }} = true ] && echo "🔗 [WeTransfer-2](${{ steps.wetransfer.outputs.url }})" >> release.txt
+        echo "::set-output name=release_tag::N1_lede_s905d_${{ env.FILE_DATE }}"
+        #touch release.txt
         echo "* 有什么问题，可以加Telegram群组讨论：[https://t.me/tt2048](https://t.me/tt2048) (安装Telegram后打开网址或者搜索tt2048)" >> release.txt
-        echo "本固件网线接外网，自动拨号，提供猕猴桃挖矿流量分享，再提供Wifi局域网。" >> release.txt
+        echo "斐讯N1-OPENWRT路由器固件：本固件网线接外网，自动拨号，提供猕猴桃挖矿流量分享，再提供Wifi局域网。" >> release.txt
         echo "当前使用版本:编译前的最后一次➦[主源码](https://github.com/coolsnowwolf/lede)更新记录，此为**自用精简包**。" >> release.txt
         echo "本版本建议**全新刷入**或者**不保留配置**进行升级。" >> release.txt
-        echo "🔗 [Cowtransfer-2](${{ steps.cowtransfer.outputs.url }})" >> release.txt
-        echo "🔗 [WeTransfer-2](${{ steps.wetransfer.outputs.url }})" >> release.txt
+        [ ${{ env.UPLOAD_COWTRANSFER }} = true ] && echo "🔗 [Cowtransfer-File](${{ steps.cowtransfer.outputs.url }})" >> release.txt
+        [ ${{ env.UPLOAD_WETRANSFER }} = true ] && echo "🔗 [WeTransfer-File](${{ steps.wetransfer.outputs.url }})" >> release.txt
         echo "This is OpenWrt firmware for Amlogic S9xxx STB" >> release.txt
         echo "* Firmware information" >> release.txt
         echo "Default IP: 192.168.2.254" >> release.txt
@@ -293,35 +322,40 @@ jobs:
       env:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
       with:
-        #tag_name: openwrt_s905d_n1_${{ env.PACKAGED_OUTPUTDATE }}
-        tag_name: openwrt_s905d_n1_${{ steps.tag.outputs.release_tag }}
+        #tag_name: openwrt_s905d_${{ env.PACKAGED_OUTPUTDATE }}
+        tag_name: ${{ steps.tag.outputs.release_tag }}
         body_path: release.txt
         files: ${{ env.PACKAGED_OUTPUTPATH }}/*
 
-    - name: Upload OpenWrt Firmware to Release
-      id: release
-      uses: ncipollo/release-action@v1
-      if: steps.build.outputs.status == 'success' && env.UPLOAD_RELEASE == 'true' && !cancelled()
-      with:
-        tag: lede_s905d_n1_${{ env.PACKAGED_OUTPUTDATE }}
-        artifacts: ${{ env.PACKAGED_OUTPUTPATH }}/*
-        allowUpdates: true
-        commit: main
-        token: ${{ secrets.GITHUB_TOKEN }}
-        body: |
-          * 2有什么问题，可以加Telegram群组讨论：[https://t.me/tt2048](https://t.me/tt2048) (安装Telegram后打开网址或者搜索tt2048)
-          本固件网线接外网，自动拨号，提供猕猴桃挖矿流量分享，再提供Wifi局域网。
-          当前使用版本:编译前的最后一次➦[主源码](https://github.com/coolsnowwolf/lede)更新记录，此为**自用精简包**。
-          本版本建议**全新刷入**或者**不保留配置**进行升级。
-          This is OpenWrt firmware for Amlogic S9xxx STB
-          * Firmware information
-          Default IP: 192.168.2.254
-          Default username: root
-          Default password: password
-          Default WIFI name: OpenWrt
-          Default WIFI password: none
-          Install to EMMC: Login to OpenWrt → System → Amlogic Service → Install OpenWrt
-          ${{ env.useVersionInfo }}
+    #- name: Upload OpenWrt Firmware to Release
+    #  id: release
+    #  uses: ncipollo/release-action@v1
+    #  if: steps.build.outputs.status == 'success' && env.UPLOAD_RELEASE == 'true' && !cancelled()
+    #  with:
+    #    #tag: N1_lede_s905d_${{ env.FILE_DATE }}
+    #    tag: ${{ steps.tag.outputs.release_tag }}
+    #    artifacts: ${{ env.PACKAGED_OUTPUTPATH }}/*
+    #    #name: R${{ env.DATE }} for ${{ env.FILE_NAME }}
+    #    allowUpdates: true
+    #    commit: main
+    #    #token: ${{ secrets.RELEASES_TOKEN }}
+    #    token: ${{ secrets.GITHUB_TOKEN }}
+    #    body: |
+    #      * 有什么问题，可以加Telegram群组讨论：[https://t.me/tt2048](https://t.me/tt2048) (安装Telegram后打开网址或者搜索tt2048)
+    #      本固件网线接外网，自动拨号，提供猕猴桃挖矿流量分享，再提供Wifi局域网。
+    #      当前使用版本:编译前的最后一次➦[主源码](https://github.com/coolsnowwolf/lede)更新记录，此为**自用精简包**。
+    #      本版本建议**全新刷入**或者**不保留配置**进行升级。
+    #      🔗 [Cowtransfer-2](${{ steps.cowtransfer.outputs.url }})
+    #      🔗 [WeTransfer-2](${{ steps.wetransfer.outputs.url }})
+    #      This is OpenWrt firmware for Amlogic S9xxx STB
+    #      * Firmware information
+    #      Default IP: 192.168.2.254
+    #      Default username: root
+    #      Default password: password
+    #      Default WIFI name: OpenWrt
+    #      Default WIFI password: none
+    #      Install to EMMC: Login to OpenWrt → System → Amlogic Service → Install OpenWrt
+    #      ${{ env.useVersionInfo }}
 
     - name: Send telegram message on push
       uses: appleboy/telegram-action@master
@@ -343,6 +377,132 @@ jobs:
       with:
         name: bin
         path: openwrt/bin
+
+    - name: 'Upload Files To Ipfs Network'
+      id: publish
+      env:
+        PEERID: ${{ secrets.PEERID }}
+        PRIVKEY: ${{ secrets.PRIVKEY }}
+        CID: cid
+      if: steps.tag.outputs.status == 'success' && env.PEERID != '' && env.PRIVKEY != ''
+      run: |
+        sudo -E apt-get -qq update
+        sudo -E apt-get -qq install inetutils-ping
+        pip install -r ./ipfs/requirements.txt
+        echo 下载软件客户端，同步至IPFS网络，取消下载，在发布ipfs时直接添加CID
+        # python main.py soft
+
+        #git clone https://github.com/letseeqiji/oneinstall.git
+        #cd oneinstall/golang
+        #sh goinstall.sh
+        go version
+        #git clone https://github.com/ipfs/go-ipfs.git
+        #cd go-ipfs
+        #make install
+        # wget http://dweb.link/ipfs/QmNtGe5WSnQA4chbxZcDVCVPZDRNMtrjYmLYVW5pLBfvvk/go-ipfs/ipfs -O ./ipfs/ipfs
+        chmod 7777 ./ipfs/ipfs
+        #wget http://dweb.link/ipfs/QmNtGe5WSnQA4chbxZcDVCVPZDRNMtrjYmLYVW5pLBfvvk/go-ipfs/install.sh -O install.sh
+        chmod 7777 ./ipfs/install.sh
+        sh ./ipfs/install.sh
+        #ipfs init
+        mkdir /home/runner/.ipfs
+        cp -r ./ipfs/config/* /home/runner/.ipfs
+        sed -i 's/vpeiPEERID/${{ secrets.PEERID }}/g' /home/runner/.ipfs/config
+        sed -i 's/vpeiPRIVKEY/${{ env.PRIVKEY }}/g' /home/runner/.ipfs/config
+        # cp -r /home/runner/.ipfs config
+        # cp -f /home/runner/.ipfs/config ./config
+        # cd /home/runner/.ipfs
+        # ls
+
+        #file1=./ipfs/tmp/001.out
+        # 说明：nohup加在一个命令的最前面，表示不挂断的运行命令
+        # -u 表示实时输出到.out
+        # &加在一个命令的最后面，表示这个命令放在后台执行
+        # nohup ipfs add -r ./out >$file1 &
+        # sleep 5
+        # dataline1=$(< $file1)
+        # echo $dataline1
+
+        ipfs id
+        dataline1=$(ipfs add -r ./out)
+        echo $dataline1
+
+        echo 获取最后50个字符（46 + 4），数字50需要根据文件发布的目录调整./out，目录长度增长，50数字增加。
+        CID=${dataline1: -50}
+        echo $CID
+        echo
+        echo 删除空格后所有
+        CID=${CID% *}
+        echo ID:$CID
+
+        ipfs id
+        echo 将文件夹CID改名
+        ipfs files cp /ipfs/$CID /clash
+
+        echo 运行软件客户端
+        file1=./ipfs/tmp/002.out
+        # nohup ipfs daemon >$file1 &
+        nohup ipfs daemon >/dev/null 2>&1 &
+        sleep 50
+        #echo 下载缓存
+        #nohup sudo wget http://127.0.0.1:8080/ipfs/Qmczp7Sp6bsia8f6kxdMRvzqHKzrQM6NMYec9RfQJ3ksnq/ -O $file1 >$file1 &
+        
+        # echo 将软件文件夹CID添加到发布文件夹
+        #sleep 30
+        #ipfs files cp /ipfs/Qmczp7Sp6bsia8f6kxdMRvzqHKzrQM6NMYec9RfQJ3ksnq /clash/soft
+        #sleep 30
+        # echo 重新获取CID-1
+        #dataline1=$(ipfs files stat "/clash" )
+        #echo $dataline1
+        # echo 重新获取CID-2
+        #CID=${dataline1:0:46}
+        echo ID:$CID
+
+        sleep 5
+        # echo 对发布文件夹的新CID进行远程固定
+        # curl -X POST http://116.207.131.38:5001/api/v0/pin/add?arg=/ipfs/Qmczp7Sp6bsia8f6kxdMRvzqHKzrQM6NMYec9RfQJ3ksnq
+        # curl -X POST https://ipfs.infura.io:5001/api/v0/pin/add?arg=/ipfs/$CID
+        # curl -X POST http://122.9.166.5:5001/api/v0/pin/add?arg=/ipfs/Qmczp7Sp6bsia8f6kxdMRvzqHKzrQM6NMYec9RfQJ3ksnq
+        echo 对发布文件夹的新CID进行本地固定
+        ipfs pin add $CID
+
+        # 对发布的文件进行加载, CID从001.out文件获取或直接传递
+        # nohup sudo wget http://127.0.0.1:8080/ipfs/$CID/ -O $file1 >$file1 &
+
+        sleep 30
+        echo 对网络文件进行循环加载，提高IPFS发布成功率
+        python ./ipfs.py ipfs $CID
+
+        # echo 退出ipfs软件 ipfs #kill ipfs
+        # ipfs shutdown
+        # sleep 30
+        # echo 显示所有进程
+        # ps -A
+        echo 离线发布ipfs name publish /ipfs/$CID --allow-offline=true --lifetime=24h
+        # ipfs name publish /ipfs/$CID --allow-offline=true --lifetime=24h
+        ipfs name publish /ipfs/$CID --lifetime=24h
+        
+        sleep 3
+        # echo 后台运行ipfs软件
+        # file1=./ipfs/tmp/003.out
+        # nohup ipfs daemon >$file1 &
+        ipfs name publish /ipfs/$CID --lifetime=24h
+
+        sleep 30
+        echo ipfs软件已运行
+        python ./ipfs.py ipns
+
+        # sudo rm -rf ./install1 ./install2 ./install3
+        # sudo cp -f ./res/README.md ./README.md
+        # 需要安装sed 软件
+        # sudo sed -i 's/ipfs_auto_url/${{ secrets.RESURL }}code.txt\n\n${{ secrets.RESURL }}clash\n\n${{ secrets.RESURL }}openclash/g' ./README.md
+        
+        dataline1=$(jobs -l|grep ipfs| grep -v grep | awk '{print $2}')
+        kill -9 $dataline1
+
+        sleep 10
+        
+        echo "::set-output name=status::success"
 
   Upload:
     needs: [Build]
@@ -464,6 +624,7 @@ jobs:
         if: steps.compile.outputs.status == 'success' && !cancelled()
         with:
           name: |
+            #openwrt_*
             bin
 
       - name: Send telegram message on push

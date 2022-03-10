@@ -2,39 +2,43 @@
 config dnsmasq
 	option domainneeded '1'
 	option localise_queries '1'
-	option rebind_protection '1'
-	option rebind_localhost '1'
 	option local '/lan/'
 	option domain 'lan'
 	option expandhosts '1'
 	option authoritative '1'
 	option readethers '1'
 	option leasefile '/tmp/dhcp.leases'
-	option localservice '1'
-	list notinterface 'ztly5s626i'
-	option filter_aaaa '0'
-	option nohosts '1'
 	option quietdhcp '1'
+	option localservice '0'
+	option rebind_protection '0'
+	option port '53'
 	option filterwin2k '1'
-	option dnsseccheckunsigned '0'
 	option nonegcache '1'
-	list server '127.0.0.1#6099'
-	option noresolv '1'
-	option cachesize '0'
+	option mini_ttl '0'
+	option nonwildcard '1'
+	list notinterface 'ztly5s626i'
+	option nohosts '1'
+	list server '127.0.0.1#6053'
+	option resolvfile '/tmp/resolv.conf.d/resolv.conf.auto'
+	option noresolv '0'
 
 config dhcp 'lan'
 	option interface 'lan'
 	option dhcpv4 'server'
-	option dhcpv6 'server'
-	option ra 'server'
 	list ra_flags 'managed-config'
 	list ra_flags 'other-config'
 	option start '1'
+	option force '1'
+	option ra_maxinterval '600'
+	option ra_mininterval '200'
+	option ra_lifetime '1800'
 	option limit '250'
 	option leasetime '8h'
-	option ra_default '2'
-	list dns '10:0:2::254'
-	option force '1'
+	option ra 'server'
+	option dhcpv6 'server'
+	option ra_management '1'
+	option ra_default '1'
+	list dns '10:0:15::254'
 
 config dhcp 'wan'
 	option interface 'wan'
@@ -46,4 +50,136 @@ config odhcpd 'odhcpd'
 	option leasefile '/tmp/hosts/odhcpd'
 	option leasetrigger '/usr/sbin/odhcpd-update'
 	option loglevel '4'
+
+config host
+	option name 'ZCB-HOME'
+	option dns '1'
+	option ip '192.168.15.2'
+
+config host
+	option name 'VPE-PC'
+	option dns '1'
+	option ip '192.168.15.4'
+
+config host
+	option name 'ZCB'
+	option dns '1'
+	option ip '192.168.15.5'
+
+config host
+	option mac '00:16:EB:6C:C7:8A'
+	option ip '192.168.15.6'
+
+config host
+	option name 'NPIE940AD'
+	option dns '1'
+	option ip '192.168.15.7'
+
+config host
+	option name 'YK-01'
+	option dns '1'
+	option ip '192.168.15.8'
+
+config host
+	option dns '1'
+	option ip '192.168.15.9'
+	option name 'T-SYNC'
+
+config host
+	option mac '20:F4:78:68:0F:FA'
+	option ip '192.168.15.20'
+
+config host
+	option mac 'AC:1F:6B:D0:11:6A'
+	option ip '192.168.15.100'
+
+config host
+	option mac 'AC:1F:6B:D0:11:6B'
+	option ip '192.168.15.101'
+
+config host
+	option dns '1'
+	option ip '192.168.15.180'
+	option name 'P-NET'
+
+config host
+	option mac 'B0:D5:9D:62:DE:1A'
+	option ip '192.168.15.181'
+
+config host
+	option mac 'B0:D5:9D:62:DE:2A'
+	option ip '192.168.15.182'
+
+config host
+	option mac 'B0:D5:9D:62:DE:3A'
+	option ip '192.168.15.183'
+
+config host
+	option mac 'C4:2F:AD:10:42:13'
+	option ip '192.168.15.184'
+
+config host
+	option mac '02:42:BF:CA:9A:0B'
+	option ip '192.168.15.186'
+
+config host
+	option mac 'DC:A6:32:F2:D0:0C'
+	option ip '192.168.15.188'
+
+config host
+	option mac 'C0:E7:3E:C4:01:C0'
+	option ip '192.168.15.189'
+
+config host
+	option mac 'FC:7C:02:8A:7F:47'
+	option ip '192.168.15.190'
+
+config host
+	option mac 'C0:E7:3E:B6:F9:F3'
+	option ip '192.168.15.191'
+
+config host
+	option ip '192.168.15.192'
+	option mac 'B0:D5:9D:D2:B6:30'
+
+config host
+	option mac 'B0:D5:9D:D3:93:E6'
+	option ip '192.168.15.193'
+
+config host
+	option mac 'C0:22:6D:5F:5C:74'
+	option ip '192.168.15.194'
+
+config host
+	option mac 'C0:E7:3E:EF:14:B5'
+	option ip '192.168.15.195'
+
+config host
+	option mac 'C0:E7:3E:54:F2:A8'
+	option ip '192.168.15.196'
+
+config host
+	option mac '00:22:6D:5F:5C:74'
+	option ip '192.168.15.197'
+
+config host
+	option mac '00:22:6D:63:E5:67'
+	option ip '192.168.15.198'
+
+config dhcp 'zerotier'
+	option start '100'
+	option leasetime '12h'
+	option limit '150'
+	option interface 'zerotier'
+
+config srvhost
+	option srv '_vlmcs._tcp'
+	option target 'X-NET'
+	option port '1688'
+	option class '0'
+	option weight '100'
+
+config domain
+	option name 'e.vmess.com'
+	option ip '192.168.15.5'
 

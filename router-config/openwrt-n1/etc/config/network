@@ -1,39 +1,42 @@
 
 config interface 'loopback'
-	option device 'lo'
+	option ifname 'lo'
 	option proto 'static'
 	option ipaddr '127.0.0.1'
 	option netmask '255.0.0.0'
 
 config globals 'globals'
-	option ula_prefix '10:0:2::/64'
-	option packet_steering '1'
-
-config device
-	option name 'br-lan'
-	option type 'bridge'
-	list ports 'wlan0'
+	option ula_prefix '10:0:15::/64'
 
 config interface 'lan'
-	option device 'br-lan'
 	option proto 'static'
 	option netmask '255.255.255.0'
-	option ip6assign '60'
-	option ipaddr '192.168.2.254'
-	list dns '80.80.80.80'
+	option _orig_ifname 'eth0 wlan0 radio0.network2'
+	option _orig_bridge 'true'
+	option ip6assign '64'
 	option ip6ifaceid '::254'
-
-config device
-	option name 'wlan0'
+	option type 'bridge'
+	option ifname 'docker0 eth1'
+	option ipaddr '192.168.15.254'
+	option dns '192.168.15.254'
 
 config interface 'wan'
-	option proto 'pppoe'
-	option device 'eth0'
-	option username 'hfi45593'
-	option password '958199'
-	option ipv6 'auto'
+	option ifname 'eth0'
+	option _orig_ifname 'eth0'
+	option _orig_bridge 'false'
+	option proto 'dhcp'
+	option peerdns '0'
+	option dns '1.1.1.1 8.8.8.8'
+
+config interface 'wan6'
+	option proto 'dhcpv6'
+	option ifname 'eth0'
+	option reqaddress 'try'
+	option reqprefix 'auto'
 
 config interface 'zerotier'
+	option ifname 'ztly5s626i'
+	option _orig_ifname 'ztly5s626i'
+	option _orig_bridge 'false'
 	option proto 'dhcp'
-	option device 'ztly5s626i'
 
