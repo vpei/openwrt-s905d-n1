@@ -9,8 +9,8 @@ config system
 	option description 'FX-NET-Description'
 	option notes 'FX-NET-Notes'
 	option timezone 'CST-8'
-	option zonename 'Asia/Taipei'
 	option hostname 'E-NET'
+	option zonename 'Asia/Macau'
 
 config timeserver 'ntp'
 	list server '0.openwrt.pool.ntp.org'

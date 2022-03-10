@@ -26,7 +26,7 @@ config cert 'defaults'
 	option bits '2048'
 	option ec_curve 'P-256'
 	option state 'Somewhere'
-	option commonname 'FX-NET'
 	option country 'CN'
 	option location 'HK'
+	option commonname 'E-NET'
 
