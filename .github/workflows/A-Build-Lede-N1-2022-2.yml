@@ -10,8 +10,8 @@ name: A-Build-Lede-N1-2022-2
 on:
   repository_dispatch:
   workflow_dispatch:
-  schedule:
-    - cron: '0 6 * * 0'
+  #schedule:
+  #  - cron: '0 6 * * 0'
 
 env:
   REPO_URL: https://github.com/coolsnowwolf/lede
