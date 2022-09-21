@@ -5,9 +5,6 @@
 [![Download](https://img.shields.io/github/v/release/vpei/openwrt-s905d-n1?color=orange&logoColor=orange&label=Download&logo=DocuSign)](https://github.com/vpei/openwrt-s905d-n1/releases/latest) 
 [![Total](https://shields.io/github/downloads/vpei/openwrt-s905d-n1/total?logo=Bookmeter&label=Counts&logoColor=yellow&color=yellow)](https://github.com/vpei/openwrt-s905d-n1/releases)
 
-+ Upstream Code: [FongMi/TV](https://github.com/FongMi/TV)
-+ Updated Commit: de0a50546a2374a5130768018d4a2da4f1280b0e
-
 View Chinese description  |  [查看中文说明](README.cn.md)
 
 The [OpenWrt](https://openwrt.org/) Project is a Linux router operating system targeting embedded devices. Instead of trying to create a single, static firmware, OpenWrt provides a fully writable filesystem with package management. Allows you to freely choose the software package you need to customize your router system. For developers, OpenWrt is the framework to build an application without having to build a complete firmware around it; for users this means the ability for full customization, to use the device in ways never envisioned. It has more than 3000+ standardized application packages and a very rich third-party plug-in support, so you can easily replicate the same setup on any supported device.
