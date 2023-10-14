@@ -39,7 +39,7 @@ sed -i 's/root:$1$V4UetPzk$CYXluq4wUazHjmCDBCqXF.:0:0:99999:7:::/root:$1$.q1gt4p
 rm -rf feeds/packages/net/miniupnpd
 
 # Add third-party software packages (The entire repository)
-git clone https://github.com/vpei/vpei.git package/vpei
+# git clone https://github.com/vpei/vpei.git package/vpei
 
 #删除docker无脑初始化教程
 # sed -i '31,39d' package/lean/luci-app-docker/po/zh-cn/docker.po
