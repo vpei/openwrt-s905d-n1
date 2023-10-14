@@ -32,8 +32,8 @@ sed -i 's/root:$1$V4UetPzk$CYXluq4wUazHjmCDBCqXF.:0:0:99999:7:::/root:$1$.q1gt4p
 
 # ------------------------------- Other started -------------------------------
 # 添加xray-core trojan-go
-svn co https://github.com/xiaorouji/openwrt-passwall/trunk/xray-core package/xray-core
-svn co https://github.com/xiaorouji/openwrt-passwall/trunk/trojan-go package/trojan-go
+# svn co https://github.com/xiaorouji/openwrt-passwall/trunk/xray-core package/xray-core
+# svn co https://github.com/xiaorouji/openwrt-passwall/trunk/trojan-go package/trojan-go
 
 # 自定义miniupnpd miniupnpd-2.2.2-2, 包中已包含
 rm -rf feeds/packages/net/miniupnpd
