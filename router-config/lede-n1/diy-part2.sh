@@ -36,7 +36,7 @@ sed -i 's/root:$1$V4UetPzk$CYXluq4wUazHjmCDBCqXF.:0:0:99999:7:::/root:$1$.q1gt4p
 # svn co https://github.com/xiaorouji/openwrt-passwall/trunk/trojan-go package/trojan-go
 
 # 自定义miniupnpd miniupnpd-2.2.2-2, 包中已包含
-rm -rf feeds/packages/net/miniupnpd
+# rm -rf feeds/packages/net/miniupnpd
 
 # Add third-party software packages (The entire repository)
 # git clone https://github.com/vpei/vpei.git package/vpei
