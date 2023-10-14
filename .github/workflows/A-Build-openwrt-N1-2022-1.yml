@@ -53,7 +53,7 @@ jobs:
 
     steps:
     - name: Checkout
-      uses: actions/checkout@v2
+      uses: actions/checkout@v4
 
     - name: Initialization environment
       env:
@@ -188,7 +188,7 @@ jobs:
       run: df -hT
 
     - name: Upload OpenWrt bin directory to Actions
-      uses: actions/upload-artifact@v2
+      uses: actions/upload-artifact@v3
       if: steps.compile.outputs.status == 'success' && env.UPLOAD_BIN_DIR == 'true' && !cancelled()
       with:
         name: openwrt_bin_armvirt_64_${{ env.FILE_DATE }}
@@ -206,7 +206,7 @@ jobs:
         echo "::set-output name=status::success"
 
     - name: Upload armvirt directory to Actions
-      uses: actions/upload-artifact@v2
+      uses: actions/upload-artifact@v3
       if: steps.organize.outputs.status == 'success' && env.UPLOAD_ARMVIRT == 'true' && !cancelled()
       with:
         name: openwrt_armvirt_64_${{ env.FILE_DATE }}
@@ -256,7 +256,7 @@ jobs:
         TELEGRAM_BOT_TOKEN: ${{ secrets.TELEGRAM_BOT_TOKEN }}
 
     - name: Upload OpenWrt bin directory to Actions
-      uses: actions/upload-artifact@v2
+      uses: actions/upload-artifact@v3
       if: steps.compile.outputs.status == 'success' && env.UPLOAD_BIN_DIR == 'true'&& !cancelled()
       with:
         name: openwrt_bin_armvirt_64_${{ env.FILE_DATE }}
@@ -531,7 +531,7 @@ jobs:
           path: openwrt/bin
 
       #- name: Download Bin Folder
-        #uses: actions/download-artifact@v2
+        #uses: actions/download-artifact@v3
         ##if: env.GENERATE_STATUS == 'success'
         #with:
           #name: bin
